@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Calculo Sinais</string>
+    <string name="contacto">team.iscode@gmail.com</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="txtBtn">Calcular</string>
+    <string name="hintValorSaida">Valor Saída</string>
+    <string name="hintCem">cem%</string>
+    <string name="hintZero">zero%</string>
+    <string name="textValorEntrada">Valores Entrada</string>
+    <string name="txtValorSaida">Valores Saida</string>
+    <string name="hintValorEntrada">Valor Entrada</string>
+    <string name="SinalEntrada">Sinal Entrada</string>
+    <string name="SinalSaida">Sinal Saída</string>
+    <string name="saida">Saída</string>
+    <string name="entrada">Entrada</string>
+</resources>
+

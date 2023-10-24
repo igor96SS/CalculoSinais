@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/valoresSaida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="36dp"
+            android:gravity="center_horizontal"
+            android:text="@string/txtValorSaida"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/zeroSaida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.808" />
+
+        <EditText
+            android:id="@+id/zeroSaida"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="132dp"
+            android:ems="10"
+            android:hint="@string/hintZero"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toTopOf="@+id/zeroEntrada"
+            app:layout_constraintEnd_toStartOf="@+id/cemSaida"
+            app:layout_constraintHorizontal_bias="0.026"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="@color/dirtyWhite" />
+
+        <EditText
+            android:id="@+id/cemSaida"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="60dp"
+            android:ems="10"
+            android:hint="@string/hintCem"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            app:layout_constraintBottom_toTopOf="@+id/valoresEntrada"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/valoresEntrada"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="44dp"
+            android:text="@string/textValorEntrada"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/zeroEntrada"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/saida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/saida"
+            android:textStyle="bold"
+
+            android:textSize="21sp"
+            app:layout_constraintBottom_toTopOf="@+id/valorSaida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/zeroEntrada"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/zeroSaida"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="76dp"
+            android:ems="10"
+            android:hint="@string/hintZero"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            app:layout_constraintBottom_toTopOf="@+id/valorSaida"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <EditText
+            android:id="@+id/cemEntrada"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="76dp"
+            android:ems="10"
+            android:hint="@string/hintCem"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            app:layout_constraintBottom_toTopOf="@+id/valorSaida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cemSaida"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <EditText
+            android:id="@+id/valorSaida"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="@string/hintValorSaida"
+            android:inputType="numberDecimal|numberSigned"
+            android:textAlignment="center"
+            android:textColor="@color/dirtyWhite"
+            app:layout_constraintBottom_toTopOf="@+id/btnCalc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnCalc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="50dp"
+            android:text="@string/txtBtn"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/dirtyWhite"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
