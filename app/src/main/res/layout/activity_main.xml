@@ -1,9 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/settings_24"
+        android:backgroundTint="@color/grey"
+        android:contentDescription="@string/config_values" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="2"
+        android:columnCount="1">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewEntrada"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_marginStart="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Entrada"
+                        android:textSize="20sp"/>
+
+                    <Spinner
+                        android:layout_marginStart="50dp"
+                        android:id="@+id/spinnerEntrada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+
+                </LinearLayout>
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="15dp"
+                                android:layout_column="1"
+                                android:text="%"
+                                android:textSize="25sp"/>
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="15dp"
+                                android:layout_column="1"
+                                android:text="0"
+                                android:textSize="18sp"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="12dp"
+
+                                android:layout_column="1"
+                                android:text="25"
+                                android:textSize="18sp"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="12dp"
+
+                                android:layout_column="1"
+                                android:text="50"
+                                android:textSize="18sp"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="12dp"
+                                android:layout_column="1"
+                                android:text="75"
+                                android:textSize="18sp"/>
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:layout_marginTop="12dp"
+                                android:layout_column="1"
+                                android:text="100"
+                                android:textSize="18sp"/>
+                        </TableRow>
+
+
+                    </TableLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSaida"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp">
+
+            <LinearLayout
+                android:layout_marginStart="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Saída"
+                        android:textSize="20sp"/>
+
+                    <Spinner
+                        android:layout_marginStart="50dp"
+                        android:id="@+id/spinnerSaida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_column="1"
+                            android:text="%"
+                            android:textSize="25sp"/>
+                    </TableRow>
+
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="15dp"
+                            android:layout_column="1"
+                            android:text="0"
+                            android:textSize="18sp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="12dp"
+
+                            android:layout_column="1"
+                            android:text="25"
+                            android:textSize="18sp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="12dp"
+
+                            android:layout_column="1"
+                            android:text="50"
+                            android:textSize="18sp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="12dp"
+                            android:layout_column="1"
+                            android:text="75"
+                            android:textSize="18sp"/>
+                    </TableRow>
+                    <TableRow>
+                        <TextView
+                            android:layout_marginTop="12dp"
+                            android:layout_column="1"
+                            android:text="100"
+                            android:textSize="18sp"/>
+                    </TableRow>
+
+
+                </TableLayout>
+
+
+
+            </LinearLayout>
+
+
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </GridLayout>
+
+</RelativeLayout>

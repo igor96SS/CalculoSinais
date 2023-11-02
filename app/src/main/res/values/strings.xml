@@ -22,5 +22,6 @@
     <string name="cem">cem</string>
     <string name="unidade_de_medida">Un. Medida</string>
     <string name="legend">* Required</string>
+    <string name="config_values">Config Values</string>
 </resources>
 
