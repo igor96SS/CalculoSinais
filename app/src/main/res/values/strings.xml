@@ -18,5 +18,9 @@
     <string name="SinalSaida">Sinal Saída</string>
     <string name="saida">Saída</string>
     <string name="entrada">Entrada</string>
+    <string name="zero">Zero</string>
+    <string name="cem">cem</string>
+    <string name="unidade_de_medida">Un. Medida</string>
+    <string name="legend">* Required</string>
 </resources>
 
