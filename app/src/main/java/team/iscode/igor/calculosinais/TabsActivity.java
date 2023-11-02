@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class TabsActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_tabs);
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
         Objects.requireNonNull(getSupportActionBar()).hide();
