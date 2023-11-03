@@ -3,8 +3,10 @@ package team.iscode.igor.calculosinais
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import team.iscode.igor.calculosinais.adapters.ItemAdapter
 import team.iscode.igor.calculosinais.models.Item
 
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var itemAdapterOutput: ItemAdapter
     private lateinit var spinnerAdapterInput: Spinner
     private lateinit var spinnerAdapterOutput: Spinner
+    private lateinit var buttonConfig: FloatingActionButton
 
 
 
@@ -27,6 +30,20 @@ class MainActivity : AppCompatActivity() {
         recyclerViewOutput = findViewById(R.id.recyclerViewSaida)
         spinnerAdapterInput = findViewById(R.id.spinnerEntrada)
         spinnerAdapterOutput = findViewById(R.id.spinnerSaida)
+        buttonConfig = findViewById(R.id.floatBTN)
+
+
+        buttonConfig.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+                .setView(R.layout.layout_config_dialog)
+                .setPositiveButton("Salvar") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+
+            alertDialog.show()
+        }
+
 
 
         initRecyclerView()

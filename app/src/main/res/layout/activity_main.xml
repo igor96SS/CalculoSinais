@@ -60,7 +60,6 @@
                         android:layout_height="50dp"
                         android:entries="@array/spinner"/>
 
-
                 </LinearLayout>
 
                     <TableLayout
@@ -86,7 +85,6 @@
                             android:id="@+id/recyclerViewEntrada"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"/>
-
 
                     </TableLayout>
 
@@ -157,20 +155,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-
                 </TableLayout>
-
-
 
             </LinearLayout>
 
-
-
-
         </androidx.cardview.widget.CardView>
-
-
-
 
     </GridLayout>
 
