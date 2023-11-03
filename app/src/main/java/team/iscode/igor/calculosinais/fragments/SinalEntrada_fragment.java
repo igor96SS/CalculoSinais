@@ -1,4 +1,4 @@
-package team.iscode.igor.calculosinais;
+package team.iscode.igor.calculosinais.fragments;
 
 import static java.lang.Math.pow;
 
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+
+import team.iscode.igor.calculosinais.R;
 
 public class SinalEntrada_fragment extends Fragment {
 

@@ -1,4 +1,4 @@
-package team.iscode.igor.calculosinais;
+package team.iscode.igor.calculosinais.fragments;
 
 import static java.lang.Math.sqrt;
 
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+
+import team.iscode.igor.calculosinais.R;
 
 
 public class SinalSaida_fragment extends Fragment {

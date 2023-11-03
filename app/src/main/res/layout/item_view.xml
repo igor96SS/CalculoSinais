@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:stretchColumns="1,2,3">
+
+    <TableRow>
+        <TextView
+            android:id="@+id/percentageValue"
+            android:layout_marginTop="15dp"
+            android:layout_column="1"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/signalValue"
+            android:layout_marginTop="15dp"
+            android:layout_column="2"
+            android:gravity="center"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:id="@+id/unitMeasurementValue"
+            android:layout_marginTop="15dp"
+            android:layout_column="3"
+            android:gravity="center"
+            android:textSize="15sp"/>
+    </TableRow>
+
+</TableLayout>

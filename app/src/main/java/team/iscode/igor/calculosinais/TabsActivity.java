@@ -9,6 +9,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Objects;
 
+import team.iscode.igor.calculosinais.adapters.MyViewPagerAdapter;
+
 public class TabsActivity extends AppCompatActivity {
 
     TabLayout tabLayout;

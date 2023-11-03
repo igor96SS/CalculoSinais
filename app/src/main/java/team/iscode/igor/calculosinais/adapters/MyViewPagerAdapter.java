@@ -1,9 +1,12 @@
-package team.iscode.igor.calculosinais;
+package team.iscode.igor.calculosinais.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import team.iscode.igor.calculosinais.fragments.SinalEntrada_fragment;
+import team.iscode.igor.calculosinais.fragments.SinalSaida_fragment;
 
 public class MyViewPagerAdapter extends FragmentStateAdapter {
     public MyViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
