@@ -13,10 +13,9 @@ class ItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var inputList: List<Item> = ArrayList()
 
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return InputViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false))
+        return InputViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_view,parent,false))
     }
 
     override fun getItemCount(): Int {
@@ -26,7 +25,7 @@ class ItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is InputViewHolder ->{
-                holder.bind(inputList.get(position))
+                holder.bind(inputList[position])
             }
         }
     }
@@ -36,14 +35,12 @@ class ItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     class InputViewHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView){
-        val percentage: TextView = itemView.findViewById(R.id.percentageValue)
-        val inputValue: TextView = itemView.findViewById(R.id.signalValue)
-        val unitMeasure: TextView = itemView.findViewById(R.id.unitMeasurementValue)
+        private val percentage: TextView = itemView.findViewById(R.id.percentageValue)
+        private val inputValue: TextView = itemView.findViewById(R.id.signalValue)
 
         fun bind(signalValue: Item){
-            percentage.setText(signalValue.percentage)
-            inputValue.setText(signalValue.signalValue)
-            unitMeasure.setText(signalValue.unitMeasurement)
+            percentage.text = signalValue.percentage.toString()
+            inputValue.text = signalValue.signalValue.toString()
         }
     }
 
