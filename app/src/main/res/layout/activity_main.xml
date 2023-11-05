@@ -6,18 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatBTN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/settings_24"
-        android:backgroundTint="@color/grey"
-        android:contentDescription="@string/config_values" />
-
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,7 +22,9 @@
             android:layout_row="0"
             android:layout_column="0"
             app:cardCornerRadius="8dp"
-            app:cardElevation="10dp">
+            app:cardElevation="10dp"
+            android:clickable="true"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_marginStart="30dp"
@@ -48,6 +38,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/titleInput"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/textValorEntrada"
@@ -84,7 +75,8 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerViewEntrada"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent"
+                            android:clickable="true"/>
 
                     </TableLayout>
 
@@ -103,7 +95,9 @@
             android:layout_row="1"
             android:layout_column="0"
             app:cardCornerRadius="8dp"
-            app:cardElevation="10dp">
+            app:cardElevation="10dp"
+            android:clickable="true"
+            android:focusable="true">
 
             <LinearLayout
                 android:layout_marginStart="30dp"
@@ -162,5 +156,17 @@
         </androidx.cardview.widget.CardView>
 
     </GridLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/settings_24"
+        android:backgroundTint="@color/grey"
+        android:contentDescription="@string/config_values" />
 
 </RelativeLayout>

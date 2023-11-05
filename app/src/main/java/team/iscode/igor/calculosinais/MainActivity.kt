@@ -1,10 +1,13 @@
 package team.iscode.igor.calculosinais
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     private var outputResult: Map<Int,Float> = emptyMap()
     private var inputResult: Map<Int,Float> = emptyMap()
 
+    private lateinit var cardBoxInput: CardView
+    private lateinit var cardBoxOutput: CardView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +50,8 @@ class MainActivity : AppCompatActivity() {
         spinnerAdapterOutput = findViewById(R.id.spinnerSaida)
         buttonConfig = findViewById(R.id.floatBTN)
 
+        cardBoxInput = findViewById(R.id.cardViewEntrada)
+        cardBoxOutput = findViewById(R.id.cardViewSaida)
 
         buttonConfig.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
@@ -88,10 +95,8 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     // Verifique se todos os campos estão preenchidos
-                    val allFieldsFilled = unidadeMedidaEntradaEditText.text.isNotEmpty() &&
-                            zeroValueEntradaEditText.text.isNotEmpty() &&
+                    val allFieldsFilled = zeroValueEntradaEditText.text.isNotEmpty() &&
                             cemValueEntradaEditText.text.isNotEmpty() &&
-                            unidadeMedidaSaidaEditText.text.isNotEmpty() &&
                             zeroValueSaidaEditText.text.isNotEmpty() &&
                             cemValueSaidaEditText.text.isNotEmpty()
 
@@ -113,13 +118,9 @@ class MainActivity : AppCompatActivity() {
                         inputResult = calcInput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
                         addDataSet(outputResult, inputResult)
 
+                        alertDialog.dismiss()
+
                     }
-
-
-
-
-
-
                 }
             }
 
@@ -128,8 +129,54 @@ class MainActivity : AppCompatActivity() {
 
 
         initRecyclerView()
-        addDataSet(outputResult, inputResult)
+        //addDataSet(outputResult, inputResult)
 
+        cardBoxInput.setOnClickListener {
+            if (isVariablesInitialized()) {
+                val intent = Intent(this, TabsActivity::class.java)
+                intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
+                intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
+                intent.putExtra("cemInput", cemValueEntrada.toFloat())
+                intent.putExtra("cemOutput", cemValueSaida.toFloat())
+                startActivity(intent)
+            } else {
+                // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
+                val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+                    .setTitle("Erro")
+                    .setMessage("Por favor, preencha os valores no diálogo de configuração.")
+                    .setPositiveButton("OK", null)
+                    .create()
+                alertDialog.show()
+            }
+        }
+
+        cardBoxOutput.setOnClickListener {
+            if (isVariablesInitialized()) {
+                val intent = Intent(this, TabsActivity::class.java)
+                intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
+                intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
+                intent.putExtra("cemInput", cemValueEntrada.toFloat())
+                intent.putExtra("cemOutput", cemValueSaida.toFloat())
+                startActivity(intent)
+            } else {
+                // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
+                val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+                    .setTitle("Erro")
+                    .setMessage("Por favor, preencha os valores no diálogo de configuração.")
+                    .setPositiveButton("OK", null)
+                    .create()
+                alertDialog.show()
+            }
+        }
+
+    }
+
+    // Função para verificar se as variáveis foram inicializadas
+    private fun isVariablesInitialized(): Boolean {
+        return ::zeroValueEntrada.isInitialized &&
+                ::cemValueEntrada.isInitialized &&
+                ::zeroValueSaida.isInitialized &&
+                ::cemValueSaida.isInitialized
     }
 
     private fun calcOutput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
@@ -225,4 +272,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }

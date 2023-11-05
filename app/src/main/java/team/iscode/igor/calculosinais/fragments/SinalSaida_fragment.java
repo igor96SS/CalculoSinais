@@ -56,6 +56,21 @@ public class SinalSaida_fragment extends Fragment {
         saida.setOnClickListener(this::erase);
 
 
+        Bundle args = getArguments();
+        if (args != null) {
+            float zeroInput = args.getFloat("zeroInput", 0.0f);
+            float zeroOutput = args.getFloat("zeroOutput", 0.0f);
+            float cemInput = args.getFloat("cemInput", 0.0f);
+            float cemOutput = args.getFloat("cemOutput", 0.0f);
+
+            // Faça o que desejar com os valores, por exemplo, defina os campos de entrada
+            zeroEntrada.setText(String.valueOf(zeroInput));
+            zeroSaida.setText(String.valueOf(zeroOutput));
+            cemEntrada.setText(String.valueOf(cemInput));
+            cemSaida.setText(String.valueOf(cemOutput));
+        }
+
+
         return viewInflater;
     }
 
@@ -79,7 +94,7 @@ public class SinalSaida_fragment extends Fragment {
     public void calc(View view) {
         if(valorEntrada.getText().toString().isEmpty() || zeroSaida.getText().toString().isEmpty() || zeroEntrada.getText().toString().isEmpty() || cemSaida.getText().toString().isEmpty() || cemEntrada.getText().toString().isEmpty()){
 
-            AlertDialog.Builder adb = new AlertDialog.Builder(requireContext());
+            AlertDialog.Builder adb = new AlertDialog.Builder(requireContext(), R.style.MyDialogTheme);
             adb.setTitle("ALERTA");
             adb.setMessage("Preencha todos os Campos");
             adb.setPositiveButton("Sair", new DialogInterface.OnClickListener() {
@@ -108,7 +123,7 @@ public class SinalSaida_fragment extends Fragment {
 
             cRaiz = (sqrt((sRaiz-zeroOut)/rangeOut)*rangeOut)+zeroOut;
 
-            AlertDialog.Builder adb = new AlertDialog.Builder(requireContext());
+            AlertDialog.Builder adb = new AlertDialog.Builder(requireContext(), R.style.MyDialogTheme);
             adb.setTitle("RESULTADOS");
             adb.setMessage("Range Saída: " + formater.format(rangeOut)
                     + System.lineSeparator()
