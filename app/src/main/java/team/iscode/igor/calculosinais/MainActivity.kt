@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import team.iscode.igor.calculosinais.adapters.ItemAdapter
 import team.iscode.igor.calculosinais.models.Item
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var zeroValueSaida: String
     private lateinit var cemValueSaida: String
     private var outputResult: Map<Int,Float> = emptyMap()
+    private var inputResult: Map<Int,Float> = emptyMap()
 
 
 
@@ -47,44 +50,85 @@ class MainActivity : AppCompatActivity() {
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
             val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
                 .setView(dialogView)
-                .setPositiveButton("Salvar") { dialog, which ->
+                .setPositiveButton("Salvar", null)
+                .create()
 
-                    //VALORES ENTRADA
-
+            alertDialog.setOnShowListener {
+                val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                positiveButton.setOnClickListener {
                     val unidadeMedidaEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
                     val zeroValueEntradaEditText = dialogView.findViewById<EditText>(R.id.zeroValueEntrada)
                     val cemValueEntradaEditText = dialogView.findViewById<EditText>(R.id.cemValueEntrada)
-
-                    // Agora você pode acessar os valores inseridos nos campos de entrada
-                    unidadeMedidaEntrada = unidadeMedidaEntradaEditText.text.toString()
-                    zeroValueEntrada = zeroValueEntradaEditText.text.toString()
-                    cemValueEntrada = cemValueEntradaEditText.text.toString()
-
-                    // VALORES SAIDA
-
                     val unidadeMedidaSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
                     val zeroValueSaidaEditText = dialogView.findViewById<EditText>(R.id.zeroValueSaida)
                     val cemValueSaidaEditText = dialogView.findViewById<EditText>(R.id.cemValueSaida)
 
-                    // Agora você pode acessar os valores inseridos nos campos de entrada
-                    unidadeMedidaSaida = unidadeMedidaSaidaEditText.text.toString()
-                    zeroValueSaida = zeroValueSaidaEditText.text.toString()
-                    cemValueSaida = cemValueSaidaEditText.text.toString()
+                    if (zeroValueEntradaEditText.text.isEmpty()) {
+                        zeroValueEntradaEditText.error = "Campo obrigatório"
+                    } else {
+                        zeroValueEntradaEditText.error = null
+                    }
 
-                    outputResult = calcOutput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
-                    //calcInput(unidadeMedidaSaida, zeroValueSaida, cemValueSaida )
-                    addDataSet(outputResult)
+                    if (cemValueEntradaEditText.text.isEmpty()) {
+                        cemValueEntradaEditText.error = "Campo obrigatório"
+                    } else {
+                        cemValueEntradaEditText.error = null
+                    }
+
+                    if (zeroValueSaidaEditText.text.isEmpty()) {
+                        zeroValueSaidaEditText.error = "Campo obrigatório"
+                    } else {
+                        zeroValueSaidaEditText.error = null
+                    }
+
+                    if (cemValueSaidaEditText.text.isEmpty()) {
+                        cemValueSaidaEditText.error = "Campo obrigatório"
+                    } else {
+                        cemValueSaidaEditText.error = null
+                    }
+
+                    // Verifique se todos os campos estão preenchidos
+                    val allFieldsFilled = unidadeMedidaEntradaEditText.text.isNotEmpty() &&
+                            zeroValueEntradaEditText.text.isNotEmpty() &&
+                            cemValueEntradaEditText.text.isNotEmpty() &&
+                            unidadeMedidaSaidaEditText.text.isNotEmpty() &&
+                            zeroValueSaidaEditText.text.isNotEmpty() &&
+                            cemValueSaidaEditText.text.isNotEmpty()
+
+                    if (allFieldsFilled) {
+
+                        // VALORES ENTRADA
+                        unidadeMedidaEntrada = unidadeMedidaEntradaEditText.text.toString()
+                        zeroValueEntrada = zeroValueEntradaEditText.text.toString()
+                        cemValueEntrada = cemValueEntradaEditText.text.toString()
+
+
+                        // VALORES SAIDA
+
+                        unidadeMedidaSaida = unidadeMedidaSaidaEditText.text.toString()
+                        zeroValueSaida = zeroValueSaidaEditText.text.toString()
+                        cemValueSaida = cemValueSaidaEditText.text.toString()
+
+                        outputResult = calcOutput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                        inputResult = calcInput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                        addDataSet(outputResult, inputResult)
+
+                    }
+
+
+
+
 
 
                 }
-                .create()
+            }
 
             alertDialog.show()
         }
 
 
         initRecyclerView()
-        addDataSet(outputResult)
+        addDataSet(outputResult, inputResult)
 
     }
 
@@ -97,28 +141,52 @@ class MainActivity : AppCompatActivity() {
         val rangeIn = cemValueInput-zeroValueInput
 
 
-        if (spinnerValue == "Linear"){
+        for(percentage in listOf(0,25,50,75,100)){
+            val valorOut = (rangeOut*(percentage.toFloat()/100))+zeroValueOutput
+            val sRaiz = (((valorOut - zeroValueOutput)*rangeIn)/rangeOut)+zeroValueInput
 
-            for(percentage in listOf(0,25,50,75,100)){
-                val valorOut = rangeOut*(percentage.toFloat()/100)
-                val sRaiz = (((valorOut - zeroValueOutput)*rangeIn)/rangeOut)+zeroValueInput
+            if (spinnerValue == "Não Linear"){
+                val cRaiz = (sRaiz - zeroValueInput).pow(2f) /rangeIn + zeroValueInput
+                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+
+            }else{
                 resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
             }
-
         }
 
         return resultMap
 
     }
 
-    /*
-    private fun calcInput(unidadeMedida: String, zeroValue: String, cemValue: String): Map<Int,Float>{
 
+    private fun calcInput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
+        val spinnerValue = spinnerAdapterOutput.selectedItem.toString()
+        val resultMap = mutableMapOf<Int,Float>()
+
+        val rangeOut = cemValueOutput-zeroValueOutput
+        val rangeIn = cemValueInput-zeroValueInput
+
+
+        for(percentage in listOf(0,25,50,75,100)){
+            val valorIn = rangeIn*(percentage.toFloat()/100)+zeroValueInput
+            val sRaiz = (((valorIn - zeroValueInput)*rangeOut)/rangeIn)+zeroValueOutput
+
+            if (spinnerValue == "Não Linear"){
+                val cRaiz = (sqrt((sRaiz-zeroValueOutput)/rangeOut)*rangeOut)+zeroValueOutput
+                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+
+            }else{
+                resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
+            }
+        }
+
+
+        return resultMap
     }
 
-     */
 
-    private fun addDataSet(outputCalcResult: Map<Int, Float>){
+
+    private fun addDataSet(outputCalcResult: Map<Int, Float>, inputCalcResult: Map<Int,Float>){
         val inputData = listOf(
             Item(0, outputCalcResult[0] ?: 0.0f),
             Item(25,outputCalcResult[25] ?: 0.0f),
@@ -130,11 +198,11 @@ class MainActivity : AppCompatActivity() {
         itemAdapterInput.submitList(inputData)
 
         val outputData = listOf(
-            Item(0,1.1f),
-            Item(25,-13f),
-            Item(50,1.43f),
-            Item(75,1f),
-            Item(100,15f)
+            Item(0,inputCalcResult[0] ?: 0.0f),
+            Item(25,inputCalcResult[25] ?: 0.0f),
+            Item(50,inputCalcResult[50] ?: 0.0f),
+            Item(75,inputCalcResult[75] ?: 0.0f),
+            Item(100,inputCalcResult[100] ?: 0.0f)
         )
 
         itemAdapterOutput.submitList(outputData)
