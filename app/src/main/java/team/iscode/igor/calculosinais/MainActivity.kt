@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
@@ -52,6 +53,9 @@ class MainActivity : AppCompatActivity() {
 
         cardBoxInput = findViewById(R.id.cardViewEntrada)
         cardBoxOutput = findViewById(R.id.cardViewSaida)
+
+        initRecyclerView()
+
 
         buttonConfig.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
@@ -128,9 +132,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        initRecyclerView()
-        //addDataSet(outputResult, inputResult)
-
         cardBoxInput.setOnClickListener {
             if (isVariablesInitialized()) {
                 val intent = Intent(this, TabsActivity::class.java)
@@ -169,9 +170,39 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+        //actions when spinner changes
+        spinnerAdapterInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // update results if possible
+                if (isVariablesInitialized()) {
+                    outputResult = calcOutput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    inputResult = calcInput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    addDataSet(outputResult, inputResult)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        //actions when spinner changes
+        spinnerAdapterOutput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                // update results if possible
+                if (isVariablesInitialized()) {
+                    outputResult = calcOutput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    inputResult = calcInput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    addDataSet(outputResult, inputResult)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
     }
 
-    // Função para verificar se as variáveis foram inicializadas
+    //check if variables are initialized
     private fun isVariablesInitialized(): Boolean {
         return ::zeroValueEntrada.isInitialized &&
                 ::cemValueEntrada.isInitialized &&
@@ -179,6 +210,7 @@ class MainActivity : AppCompatActivity() {
                 ::cemValueSaida.isInitialized
     }
 
+    //Calculation of output values
     private fun calcOutput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
 
         val spinnerValue = spinnerAdapterInput.selectedItem.toString()
@@ -205,7 +237,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
+    //Calculation of input values
     private fun calcInput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
         val spinnerValue = spinnerAdapterOutput.selectedItem.toString()
         val resultMap = mutableMapOf<Int,Float>()
@@ -230,7 +262,6 @@ class MainActivity : AppCompatActivity() {
 
         return resultMap
     }
-
 
 
     private fun addDataSet(outputCalcResult: Map<Int, Float>, inputCalcResult: Map<Int,Float>){
