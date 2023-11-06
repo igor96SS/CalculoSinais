@@ -57,19 +57,7 @@ public class TabsActivity extends AppCompatActivity {
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
             Objects.requireNonNull(getSupportActionBar()).hide();
 
-
-
-
-            //myViewPagerAdapter.setArgumentsForFragment(viewPager2.getCurrentItem(), bundle);
-
-
-
-
-
         }
-
-
-
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
