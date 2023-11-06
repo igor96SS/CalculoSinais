@@ -58,17 +58,24 @@
                         android:layout_height="wrap_content"
                         android:stretchColumns="1,2,3">
 
-                        <TableRow>
+                        <TableRow
+                            android:layout_marginTop="10dp"
+                            >
                             <TextView
-                                android:layout_marginTop="15dp"
                                 android:layout_column="1"
                                 android:text="@string/percentage"
                                 android:textSize="20sp"/>
 
                             <TextView
-                                android:layout_marginTop="15dp"
+                                android:layout_width="wrap_content"
                                 android:layout_column="3"
                                 android:text="@string/unidade_de_medida"
+                                android:gravity="start"
+                                android:textSize="15sp"/>
+                            <TextView
+                                android:id="@+id/uMedidaEntradaValue"
+                                android:layout_width="wrap_content"
+                                android:layout_column="3"
                                 android:gravity="center"
                                 android:textSize="15sp"/>
                         </TableRow>
@@ -126,21 +133,27 @@
                 </LinearLayout>
 
                 <TableLayout
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="1,2,3">
 
                     <TableRow>
                         <TextView
-                            android:layout_marginTop="15dp"
                             android:layout_column="1"
                             android:text="@string/percentage"
                             android:textSize="20sp"/>
 
                         <TextView
-                            android:layout_marginTop="15dp"
                             android:layout_column="3"
                             android:text="@string/unidade_de_medida"
+                            android:gravity="start"
+                            android:textSize="15sp"/>
+
+                        <TextView
+                            android:id="@+id/uMedidaSaidaValue"
+                            android:layout_width="wrap_content"
+                            android:layout_column="3"
                             android:gravity="center"
                             android:textSize="15sp"/>
                     </TableRow>

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,11 +29,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerAdapterOutput: Spinner
     private lateinit var buttonConfig: FloatingActionButton
 
-    private lateinit var unidadeMedidaEntrada: String
+    private lateinit var unidadeMedidaEntrada: TextView
     private lateinit var zeroValueEntrada: String
     private lateinit var cemValueEntrada: String
 
-    private lateinit var unidadeMedidaSaida: String
+    private lateinit var unidadeMedidaSaida: TextView
     private lateinit var zeroValueSaida: String
     private lateinit var cemValueSaida: String
     private var outputResult: Map<Int,Float> = emptyMap()
@@ -50,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         spinnerAdapterInput = findViewById(R.id.spinnerEntrada)
         spinnerAdapterOutput = findViewById(R.id.spinnerSaida)
         buttonConfig = findViewById(R.id.floatBTN)
+        unidadeMedidaEntrada = findViewById(R.id.uMedidaEntradaValue)
+        unidadeMedidaSaida = findViewById(R.id.uMedidaSaidaValue)
 
         cardBoxInput = findViewById(R.id.cardViewEntrada)
         cardBoxOutput = findViewById(R.id.cardViewSaida)
@@ -107,14 +110,14 @@ class MainActivity : AppCompatActivity() {
                     if (allFieldsFilled) {
 
                         // VALORES ENTRADA
-                        unidadeMedidaEntrada = unidadeMedidaEntradaEditText.text.toString()
+                        unidadeMedidaEntrada.text = unidadeMedidaEntradaEditText.text.toString()
                         zeroValueEntrada = zeroValueEntradaEditText.text.toString()
                         cemValueEntrada = cemValueEntradaEditText.text.toString()
 
 
                         // VALORES SAIDA
 
-                        unidadeMedidaSaida = unidadeMedidaSaidaEditText.text.toString()
+                        unidadeMedidaSaida.text = unidadeMedidaSaidaEditText.text.toString()
                         zeroValueSaida = zeroValueSaidaEditText.text.toString()
                         cemValueSaida = cemValueSaidaEditText.text.toString()
 
