@@ -177,6 +177,15 @@ class MainActivity : AppCompatActivity() {
         //actions when spinner changes
         spinnerAdapterInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                val selectedValue = spinnerAdapterInput.selectedItem.toString()
+                if (selectedValue == "Não Linear") {
+                    val outputSpinnerValue = spinnerAdapterOutput.selectedItem.toString()
+                    if (outputSpinnerValue == "Não Linear") {
+                        spinnerAdapterOutput.setSelection(0)
+                    }
+                }
+
                 // update results if possible
                 if (isVariablesInitialized()) {
                     outputResult = calcOutput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
@@ -192,6 +201,15 @@ class MainActivity : AppCompatActivity() {
         //actions when spinner changes
         spinnerAdapterOutput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+
+                val selectedValue = spinnerAdapterOutput.selectedItem.toString()
+                if (selectedValue == "Não Linear") {
+                    val inputSpinnerValue = spinnerAdapterInput.selectedItem.toString()
+                    if (inputSpinnerValue == "Não Linear") {
+                        spinnerAdapterInput.setSelection(0)
+                    }
+                }
+
                 // update results if possible
                 if (isVariablesInitialized()) {
                     outputResult = calcOutput(zeroValueEntrada.toFloat(), cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
@@ -229,10 +247,10 @@ class MainActivity : AppCompatActivity() {
 
             if (spinnerValue == "Não Linear"){
                 val cRaiz = (sRaiz - zeroValueInput).pow(2f) /rangeIn + zeroValueInput
-                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",cRaiz).replace(",",".").toFloat()
 
             }else{
-                resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",sRaiz).replace(",",".").toFloat()
             }
         }
 
@@ -255,10 +273,10 @@ class MainActivity : AppCompatActivity() {
 
             if (spinnerValue == "Não Linear"){
                 val cRaiz = (sqrt((sRaiz-zeroValueOutput)/rangeOut)*rangeOut)+zeroValueOutput
-                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",cRaiz).replace(",",".").toFloat()
 
             }else{
-                resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",sRaiz).replace(",",".").toFloat()
             }
         }
 
