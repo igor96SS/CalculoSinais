@@ -229,10 +229,10 @@ class MainActivity : AppCompatActivity() {
 
             if (spinnerValue == "Não Linear"){
                 val cRaiz = (sRaiz - zeroValueInput).pow(2f) /rangeIn + zeroValueInput
-                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",cRaiz).replace(",",".").toFloat()
 
             }else{
-                resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",sRaiz).replace(",",".").toFloat()
             }
         }
 
@@ -255,10 +255,10 @@ class MainActivity : AppCompatActivity() {
 
             if (spinnerValue == "Não Linear"){
                 val cRaiz = (sqrt((sRaiz-zeroValueOutput)/rangeOut)*rangeOut)+zeroValueOutput
-                resultMap[percentage] = String.format("%.2f",cRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",cRaiz).replace(",",".").toFloat()
 
             }else{
-                resultMap[percentage] = String.format("%.2f",sRaiz).toFloat()
+                resultMap[percentage] = String.format("%.2f",sRaiz).replace(",",".").toFloat()
             }
         }
 
