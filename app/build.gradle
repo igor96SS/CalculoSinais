@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "team.iscode.igor.calculosinais"
-        minSdkVersion 29
+        minSdkVersion 28
         targetSdkVersion 34
         versionCode = 6
         versionName = "2.01"
