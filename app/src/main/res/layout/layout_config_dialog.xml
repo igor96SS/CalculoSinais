@@ -73,7 +73,7 @@
                 android:id="@+id/zeroValueEntrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:inputType="numberSigned|numberDecimal"
                 android:background="@color/grey"
                 android:textColor="@color/dirtyWhite"
                 />
@@ -98,7 +98,7 @@
                 android:id="@+id/cemValueEntrada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberSigned"
+                android:inputType="numberSigned|numberDecimal"
                 android:background="@color/grey"
                 android:textColor="@color/dirtyWhite"
                 />
@@ -177,7 +177,7 @@
                     android:id="@+id/zeroValueSaida"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberSigned"
+                    android:inputType="numberSigned|numberDecimal"
                     android:background="@color/grey"
                     android:textColor="@color/dirtyWhite"
                     />
@@ -202,7 +202,7 @@
                     android:id="@+id/cemValueSaida"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberSigned"
+                    android:inputType="numberSigned|numberDecimal"
                     android:background="@color/grey"
                     android:textColor="@color/dirtyWhite"
                     />
