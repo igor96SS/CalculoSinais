@@ -1,26 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:stretchColumns="1,2,3">
+    android:orientation="horizontal">
 
-    <TableRow>
-        <TextView
-            android:id="@+id/percentageValue"
-            android:layout_column="1"
-            android:textSize="18sp"
-            android:layout_width="5dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            />
+    <!-- Coluna 1 -->
+    <TextView
+        android:id="@+id/percentageValue"
+        android:textSize="18sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"/>
 
-        <TextView
-            android:id="@+id/signalValue"
-            android:layout_column="2"
-            android:textSize="18sp"
-            android:paddingStart="0dp"
-            android:paddingEnd="95dp"/>
+    <!-- Coluna 2 -->
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:id="@+id/signalValue"
+        android:textSize="18sp"
+        android:textAlignment="textEnd"
+        android:paddingEnd="5dp"
+        android:paddingStart="1dp"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"/>
 
-    </TableRow>
 
-</TableLayout>
+    <!-- textviews 3 and 4 just to align space -->
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"/>
+
+</LinearLayout>
