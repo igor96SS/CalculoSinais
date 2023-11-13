@@ -12,15 +12,12 @@ import androidx.viewpager2.widget.ViewPager2;
 import java.util.Objects;
 
 import team.iscode.igor.calculosinais.adapters.MyViewPagerAdapter;
-import team.iscode.igor.calculosinais.fragments.SinalEntrada_fragment;
 
 public class TabsActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     MyViewPagerAdapter myViewPagerAdapter;
-
-    Float value1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +29,16 @@ public class TabsActivity extends AppCompatActivity {
         myViewPagerAdapter = new MyViewPagerAdapter(this);
 
         viewPager2.setAdapter(myViewPagerAdapter);
+
+        int selectedTab = getIntent().getIntExtra("selectedTab", -1);
+
+        // Verifica se o valor é válido antes de selecionar a guia
+        if (selectedTab >= 0 && selectedTab < tabLayout.getTabCount()) {
+            // Seleciona a guia indicada
+            tabLayout.setScrollPosition(selectedTab, 0f, true);
+            viewPager2.setCurrentItem(selectedTab);
+        }
+
 
 
         Intent intent = getIntent();

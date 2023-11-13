@@ -142,6 +142,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
                 intent.putExtra("cemInput", cemValueEntrada.toFloat())
                 intent.putExtra("cemOutput", cemValueSaida.toFloat())
+                intent.putExtra("selectedTab", 0)
                 startActivity(intent)
             } else {
                 // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
@@ -161,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                 intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
                 intent.putExtra("cemInput", cemValueEntrada.toFloat())
                 intent.putExtra("cemOutput", cemValueSaida.toFloat())
+                intent.putExtra("selectedTab", 1)
                 startActivity(intent)
             } else {
                 // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
