@@ -19,6 +19,7 @@
         <item name="android:background">@color/grey</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/Widget.AppCompat.Button.ButtonBar.AlertDialog</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
@@ -26,6 +27,10 @@
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Widget.AppCompat.Button.ButtonBar.AlertDialog" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/black</item>
     </style>
 
