@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/grey">
 
     <!-- Coluna 1 -->
     <TextView
         android:id="@+id/percentageValue"
         android:textSize="18sp"
+        android:textColor="@color/dirtyWhite"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -22,6 +24,7 @@
         android:layout_weight="1"
         android:id="@+id/signalValue"
         android:textSize="18sp"
+        android:textColor="@color/dirtyWhite"
         android:textAlignment="textEnd"
         android:paddingEnd="5dp"
         android:paddingStart="1dp"

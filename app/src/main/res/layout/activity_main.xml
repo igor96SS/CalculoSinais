@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:rowCount="2"
-        android:columnCount="1">
+        android:columnCount="1"
+        android:background="@color/darkGrey">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewEntrada"
@@ -24,13 +25,15 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:backgroundTint="@color/grey">
 
             <LinearLayout
                 android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/grey">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,6 +42,7 @@
 
                     <TextView
                         android:id="@+id/titleInput"
+                        android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/textValorEntrada"
@@ -50,14 +54,15 @@
                         android:id="@+id/spinnerEntrada"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:entries="@array/spinner"/>
+                        android:entries="@array/spinner"
+                        android:popupBackground="@color/grey"/>
 
                 </LinearLayout>
 
                     <TableLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:stretchColumns="1,2,3">
+                        android:stretchColumns="1,2,3,6">
 
                         <TableRow
                             android:layout_marginTop="6dp"
@@ -65,24 +70,25 @@
                             <TextView
                                 android:layout_column="1"
                                 android:text="@string/percentage"
-                                android:textSize="20sp"/>
+                                android:textSize="20sp"
+                                android:textColor="@color/black"/>
 
                             <TextView
-                                android:layout_width="0dp"
-                                android:layout_column="2"
-                                android:text="@string/unidade_de_medida"
-                                android:gravity="start"
-                                android:textSize="15sp"
+                                android:layout_width="wrap_content"
+                                android:layout_column="5"
                                 android:layout_marginStart="50dp"
-                                android:layout_marginEnd="3dp"
-                                />
+                                android:layout_marginEnd="5dp"
+                                android:gravity="start"
+                                android:text="@string/unidade_de_medida"
+                                android:textColor="@color/black"
+                                android:textSize="15sp" />
                             <TextView
                                 android:id="@+id/uMedidaEntradaValue"
-                                android:layout_width="match_parent"
-                                android:layout_column="3"
+                                android:layout_width="wrap_content"
                                 android:gravity="start"
-                                android:textSize="13sp"
-                                android:layout_marginEnd="8dp"/>
+                                android:textSize="20sp"
+                                android:textColor="@color/dirtyWhite"
+                                android:layout_marginEnd="5dp"/>
                         </TableRow>
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -110,13 +116,15 @@
             app:cardCornerRadius="8dp"
             app:cardElevation="10dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:backgroundTint="@color/grey">
 
             <LinearLayout
                 android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@color/grey">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -127,6 +135,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/txtValorSaida"
+                        android:textColor="@color/black"
                         android:textSize="18sp"/>
 
                     <Spinner
@@ -135,7 +144,8 @@
                         android:id="@+id/spinnerSaida"
                         android:layout_width="wrap_content"
                         android:layout_height="50dp"
-                        android:entries="@array/spinner"/>
+                        android:entries="@array/spinner"
+                        android:popupBackground="@color/grey"/>
 
                 </LinearLayout>
 
@@ -143,31 +153,34 @@
                     android:layout_marginTop="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stretchColumns="1,2,3">
+                    android:stretchColumns="1,2,3,6">
 
                     <TableRow>
                         <TextView
                             android:layout_column="1"
                             android:text="@string/percentage"
-                            android:textSize="20sp" />
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
 
                         <TextView
-                            android:layout_column="2"
+                            android:layout_width="wrap_content"
+                            android:layout_column="5"
                             android:text="@string/unidade_de_medida"
                             android:gravity="start"
                             android:textSize="15sp"
-                            android:layout_width="0dp"
+                            android:textColor="@color/black"
                             android:layout_marginStart="50dp"
-                            android:layout_marginEnd="3dp"
+                            android:layout_marginEnd="5dp"
                             />
 
                         <TextView
                             android:id="@+id/uMedidaSaidaValue"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_column="2"
                             android:gravity="start"
-                            android:textSize="13sp"
-                            android:layout_marginEnd="8dp"
+                            android:textSize="20sp"
+                            android:textColor="@color/dirtyWhite"
+                            android:layout_marginEnd="5dp"
                             />
                     </TableRow>
                     <androidx.recyclerview.widget.RecyclerView
