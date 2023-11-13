@@ -21,7 +21,6 @@
         app:tabSelectedTextColor="@color/dirtyWhite"
         app:tabTextColor="@color/darkGrey"
         android:layout_marginTop="25dp">
-    >
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

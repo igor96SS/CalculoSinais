@@ -40,7 +40,6 @@ public class TabsActivity extends AppCompatActivity {
         }
 
 
-
         Intent intent = getIntent();
         if (intent != null) {
             float zeroInput = intent.getFloatExtra("zeroInput", 0.0f);
