@@ -193,6 +193,7 @@
         android:layout_marginBottom="5dp"
         android:src="@drawable/settings_24"
         android:backgroundTint="@color/grey"
+        app:borderWidth="0dp"
         android:contentDescription="@string/config_values" />
 
 </RelativeLayout>
