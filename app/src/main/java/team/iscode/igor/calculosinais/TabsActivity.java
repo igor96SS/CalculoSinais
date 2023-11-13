@@ -3,6 +3,7 @@ package team.iscode.igor.calculosinais;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabLayout;
 
@@ -36,8 +37,15 @@ public class TabsActivity extends AppCompatActivity {
         if (selectedTab >= 0 && selectedTab < tabLayout.getTabCount()) {
             // Seleciona a guia indicada
             tabLayout.setScrollPosition(selectedTab, 0f, true);
-            viewPager2.setCurrentItem(selectedTab);
+
+            // Define a guia selecionada no ViewPager2
+            viewPager2.setCurrentItem(selectedTab, false);
+        } else {
+            // Se o valor não for válido, seleciona a primeira guia como padrão
+            tabLayout.setScrollPosition(0, 0f, true);
+            viewPager2.setCurrentItem(0, false);
         }
+
 
 
         Intent intent = getIntent();
@@ -61,9 +69,13 @@ public class TabsActivity extends AppCompatActivity {
 
 
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            Objects.requireNonNull(getSupportActionBar()).hide();
+            //Objects.requireNonNull(getSupportActionBar()).hide();
+
+            // Adiciona o botão de retorno à barra de ação
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         }
+
 
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -79,7 +91,8 @@ public class TabsActivity extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
+                tabLayout.setScrollPosition(tab.getPosition(), 0f, true);
+                viewPager2.setCurrentItem(tab.getPosition());
             }
         });
 
@@ -87,10 +100,22 @@ public class TabsActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Objects.requireNonNull(tabLayout.getTabAt(position)).select();
+                tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
 
+
     }
+
+    // Handles back button click
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish(); // Closes current activity
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
 }
