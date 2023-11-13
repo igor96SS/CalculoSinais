@@ -69,14 +69,16 @@
 
                             <TextView
                                 android:layout_width="0dp"
-                                android:layout_column="3"
+                                android:layout_column="2"
                                 android:text="@string/unidade_de_medida"
                                 android:gravity="start"
                                 android:textSize="15sp"
-                                android:layout_marginEnd="5dp"/>
+                                android:layout_marginStart="50dp"
+                                android:layout_marginEnd="5dp"
+                                />
                             <TextView
                                 android:id="@+id/uMedidaEntradaValue"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_column="3"
                                 android:gravity="start"
                                 android:textSize="13sp"
@@ -150,17 +152,18 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:layout_column="3"
+                            android:layout_column="2"
                             android:text="@string/unidade_de_medida"
                             android:gravity="start"
                             android:textSize="15sp"
                             android:layout_width="0dp"
+                            android:layout_marginStart="50dp"
                             android:layout_marginEnd="5dp"
                             />
 
                         <TextView
                             android:id="@+id/uMedidaSaidaValue"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_column="3"
                             android:gravity="start"
                             android:textSize="13sp"
