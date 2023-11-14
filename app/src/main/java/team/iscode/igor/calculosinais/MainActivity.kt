@@ -3,6 +3,7 @@ package team.iscode.igor.calculosinais
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.EditText
@@ -57,8 +58,13 @@ class MainActivity : AppCompatActivity() {
         cardBoxInput = findViewById(R.id.cardViewEntrada)
         cardBoxOutput = findViewById(R.id.cardViewSaida)
 
-        initRecyclerView()
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            // Você pode personalizar a seta de volta se desejar
+            setHomeAsUpIndicator(R.drawable.baseline_white_arrow_forward_24) // Substitua com seu ícone
+        }
 
+        initRecyclerView()
 
         buttonConfig.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
@@ -326,5 +332,32 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+
+                if (isVariablesInitialized()) {
+                    val intent = Intent(this, TabsActivity::class.java)
+                    intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
+                    intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
+                    intent.putExtra("cemInput", cemValueEntrada.toFloat())
+                    intent.putExtra("cemOutput", cemValueSaida.toFloat())
+                    intent.putExtra("selectedTab", 0)
+                    startActivity(intent)
+
+                    return true
+                }
+
+
+                val intent = Intent(this, TabsActivity::class.java)
+                intent.putExtra("toolbar",true)
+                startActivity(intent)
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 }

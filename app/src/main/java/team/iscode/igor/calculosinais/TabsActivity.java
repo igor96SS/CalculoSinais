@@ -25,6 +25,11 @@ public class TabsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tabs);
 
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+
+        // Adiciona o botão de retorno à barra de ação
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         tabLayout = findViewById(R.id.tab_layout);
         viewPager2 = findViewById(R.id.view_pager);
         myViewPagerAdapter = new MyViewPagerAdapter(this);
@@ -47,32 +52,32 @@ public class TabsActivity extends AppCompatActivity {
         }
 
 
-
         Intent intent = getIntent();
         if (intent != null) {
-            float zeroInput = intent.getFloatExtra("zeroInput", 0.0f);
-            float zeroOutput = intent.getFloatExtra("zeroOutput", 0.0f);
-            float cemInput = intent.getFloatExtra("cemInput", 0.0f);
-            float cemOutput = intent.getFloatExtra("cemOutput", 0.0f);
-            // Obtém referência ao fragmento correspondente (use getSupportFragmentManager() ou getChildFragmentManager() conforme necessário)
-            //SinalEntrada_fragment fragment = (SinalEntrada_fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+            boolean toolbar = intent.getBooleanExtra("toolbar",false);
+
+            if (!toolbar){
+
+                float zeroInput = intent.getFloatExtra("zeroInput", 0.0f);
+                float zeroOutput = intent.getFloatExtra("zeroOutput", 0.0f);
+                float cemInput = intent.getFloatExtra("cemInput", 0.0f);
+                float cemOutput = intent.getFloatExtra("cemOutput", 0.0f);
+
+                Bundle bundle = new Bundle();
+                bundle.putFloat("zeroInput", zeroInput);
+                bundle.putFloat("zeroOutput", zeroOutput);
+                bundle.putFloat("cemInput", cemInput);
+                bundle.putFloat("cemOutput", cemOutput);
+
+                myViewPagerAdapter.setSinalEntradaFragmentArguments(bundle);
+                myViewPagerAdapter.setSinalSaidaFragmentArguments(bundle);
+
+            }
 
 
-            Bundle bundle = new Bundle();
-            bundle.putFloat("zeroInput", zeroInput);
-            bundle.putFloat("zeroOutput", zeroOutput);
-            bundle.putFloat("cemInput", cemInput);
-            bundle.putFloat("cemOutput", cemOutput);
-
-            myViewPagerAdapter.setSinalEntradaFragmentArguments(bundle);
-            myViewPagerAdapter.setSinalSaidaFragmentArguments(bundle);
 
 
-            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-            //Objects.requireNonNull(getSupportActionBar()).hide();
-
-            // Adiciona o botão de retorno à barra de ação
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
         }
 
