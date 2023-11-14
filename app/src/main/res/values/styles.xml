@@ -34,5 +34,9 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="TextLabel" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 
 </resources>
