@@ -6,9 +6,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -67,6 +70,23 @@ public class SinalEntrada_fragment extends Fragment {
             cemEntrada.setText(String.valueOf(cemInput));
             cemSaida.setText(String.valueOf(cemOutput));
         }
+
+        //Keyboard button
+        TextView.OnEditorActionListener editorActionListener = (v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                // Chama a ação do botão calcular
+                btn_calc.performClick();
+                return true;
+            }
+            return false;
+        };
+
+        //add listening to all edittexts
+        valorSaida.setOnEditorActionListener(editorActionListener);
+        zeroEntrada.setOnEditorActionListener(editorActionListener);
+        zeroSaida.setOnEditorActionListener(editorActionListener);
+        cemEntrada.setOnEditorActionListener(editorActionListener);
+        cemSaida.setOnEditorActionListener(editorActionListener);
 
 
 

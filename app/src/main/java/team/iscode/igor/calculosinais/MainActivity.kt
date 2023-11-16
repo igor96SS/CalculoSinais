@@ -3,8 +3,10 @@ package team.iscode.igor.calculosinais
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
@@ -60,8 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            // Você pode personalizar a seta de volta se desejar
-            setHomeAsUpIndicator(R.drawable.baseline_white_arrow_forward_24) // Substitua com seu ícone
+            setHomeAsUpIndicator(R.drawable.baseline_white_arrow_forward_24)
         }
 
         initRecyclerView()
@@ -75,13 +76,42 @@ class MainActivity : AppCompatActivity() {
 
             alertDialog.setOnShowListener {
                 val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                val unidadeMedidaEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
+                val zeroValueEntradaEditText = dialogView.findViewById<EditText>(R.id.zeroValueEntrada)
+                val cemValueEntradaEditText = dialogView.findViewById<EditText>(R.id.cemValueEntrada)
+                val unidadeMedidaSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
+                val zeroValueSaidaEditText = dialogView.findViewById<EditText>(R.id.zeroValueSaida)
+                val cemValueSaidaEditText = dialogView.findViewById<EditText>(R.id.cemValueSaida)
+
+                // Keyboard button click
+                val editorActionListener = TextView.OnEditorActionListener { _, actionId, keyEvent ->
+                    if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER) {
+                        // Chama a ação do botão positivo
+                        positiveButton.performClick()
+                        return@OnEditorActionListener true
+                    }
+                    return@OnEditorActionListener false
+                }
+
+                //set focus so that keyboard change works on all edittexts
+                unidadeMedidaEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                zeroValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                cemValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                unidadeMedidaSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                zeroValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+                cemValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+
+                //add listening to all edittexts
+                unidadeMedidaEntradaEditText.setOnEditorActionListener(editorActionListener)
+                zeroValueEntradaEditText.setOnEditorActionListener(editorActionListener)
+                cemValueEntradaEditText.setOnEditorActionListener(editorActionListener)
+                unidadeMedidaSaidaEditText.setOnEditorActionListener(editorActionListener)
+                zeroValueSaidaEditText.setOnEditorActionListener(editorActionListener)
+                cemValueSaidaEditText.setOnEditorActionListener(editorActionListener)
+
+
                 positiveButton.setOnClickListener {
-                    val unidadeMedidaEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
-                    val zeroValueEntradaEditText = dialogView.findViewById<EditText>(R.id.zeroValueEntrada)
-                    val cemValueEntradaEditText = dialogView.findViewById<EditText>(R.id.cemValueEntrada)
-                    val unidadeMedidaSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
-                    val zeroValueSaidaEditText = dialogView.findViewById<EditText>(R.id.zeroValueSaida)
-                    val cemValueSaidaEditText = dialogView.findViewById<EditText>(R.id.cemValueSaida)
+
 
                     if (zeroValueEntradaEditText.text.isEmpty()) {
                         zeroValueEntradaEditText.error = "Campo obrigatório"
