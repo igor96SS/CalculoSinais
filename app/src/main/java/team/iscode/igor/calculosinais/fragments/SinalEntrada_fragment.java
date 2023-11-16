@@ -81,6 +81,13 @@ public class SinalEntrada_fragment extends Fragment {
             return false;
         };
 
+        //set focus so that keyboard change works on all edittexts
+        valorSaida.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        zeroEntrada.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        zeroSaida.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        cemEntrada.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        cemSaida.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         //add listening to all edittexts
         valorSaida.setOnEditorActionListener(editorActionListener);
         zeroEntrada.setOnEditorActionListener(editorActionListener);
