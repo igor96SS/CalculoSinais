@@ -1,6 +1,7 @@
 package team.iscode.igor.calculosinais
 
 import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
@@ -11,8 +12,11 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,6 +35,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var spinnerAdapterInput: Spinner
     private lateinit var spinnerAdapterOutput: Spinner
     private lateinit var buttonConfig: FloatingActionButton
+    private lateinit var buttonMainFloat: FloatingActionButton
+    private lateinit var buttonCalibFileFloat: FloatingActionButton
+    private lateinit var textViewConfigValue: TextView
+    private lateinit var textViewCalibFile: TextView
+
+    private lateinit var floatLayoutConst: ConstraintLayout
 
     private lateinit var unidadeMedidaEntrada: TextView
     private lateinit var zeroValueEntrada: String
@@ -45,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cardBoxInput: CardView
     private lateinit var cardBoxOutput: CardView
 
+    private var isExpanded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +65,13 @@ class MainActivity : AppCompatActivity() {
         spinnerAdapterInput = findViewById(R.id.spinnerEntrada)
         spinnerAdapterOutput = findViewById(R.id.spinnerSaida)
         buttonConfig = findViewById(R.id.floatBTN)
+        buttonMainFloat = findViewById(R.id.mainFloatBTN)
+        buttonCalibFileFloat = findViewById(R.id.calibFileFloatBTN)
         unidadeMedidaEntrada = findViewById(R.id.uMedidaEntradaValue)
         unidadeMedidaSaida = findViewById(R.id.uMedidaSaidaValue)
+        textViewConfigValue = findViewById(R.id.configValuesTextView)
+        textViewCalibFile = findViewById(R.id.calibFileTextView)
+        floatLayoutConst = findViewById(R.id.floatLayoutConst)
 
         cardBoxInput = findViewById(R.id.cardViewEntrada)
         cardBoxOutput = findViewById(R.id.cardViewSaida)
@@ -67,7 +83,18 @@ class MainActivity : AppCompatActivity() {
 
         initRecyclerView()
 
+        // Collapsing and expanding code
+        buttonMainFloat.setOnClickListener {
+            if (isExpanded){
+                collapseFab()
+            }else{
+                expandFab()
+            }
+        }
+
+
         buttonConfig.setOnClickListener {
+            collapseFab()
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
             val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
                 .setView(dialogView)
@@ -259,6 +286,40 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
         }
+
+        // back button click
+        onBackPressedDispatcher.addCallback(this) {
+            if (isExpanded) {
+                collapseFab()
+            } else {
+                // Permite que o sistema continue com o back normal
+                isEnabled = false
+                onBackPressedDispatcher.onBackPressed()
+            }
+        }
+
+
+    }
+
+    private fun collapseFab(){
+        isExpanded = !isExpanded
+        buttonConfig.visibility = View.GONE
+        buttonCalibFileFloat.visibility= View.GONE
+        textViewConfigValue.visibility = View.GONE
+        textViewCalibFile.visibility = View.GONE
+        floatLayoutConst.background = null
+    }
+
+    private fun expandFab(){
+        isExpanded = !isExpanded
+        buttonConfig.visibility = View.VISIBLE
+        buttonCalibFileFloat.visibility = View.VISIBLE
+        textViewConfigValue.visibility = View.VISIBLE
+        textViewCalibFile.visibility = View.VISIBLE
+        if (inputResult.isNotEmpty()){
+            floatLayoutConst.setBackgroundColor(ContextCompat.getColor(this, R.color.darkGrey))
+        }
+
     }
 
     //check if variables are initialized

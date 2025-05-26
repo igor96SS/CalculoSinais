@@ -196,17 +196,89 @@
 
     </GridLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatBTN"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/floatLayoutConst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minHeight="32dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/settings_24"
-        android:backgroundTint="@color/grey"
-        app:borderWidth="0dp"
-        android:contentDescription="@string/config_values" />
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/mainFloatBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/plus_sign"
+            android:backgroundTint="@color/grey"
+            app:borderWidth="0dp"
+            android:contentDescription="@string/main_float"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/settings_24"
+            android:backgroundTint="@color/grey"
+            app:borderWidth="0dp"
+            android:visibility="gone"
+            android:contentDescription="@string/config_values"
+            app:layout_constraintEnd_toEndOf="@id/mainFloatBTN"
+            app:layout_constraintBottom_toTopOf="@id/mainFloatBTN"
+            />
+
+        <TextView
+            android:id="@+id/configValuesTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valores Config"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/floatBTN"
+            app:layout_constraintTop_toTopOf="@id/floatBTN"
+            app:layout_constraintBottom_toBottomOf="@id/floatBTN"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/calibFileFloatBTN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/calib_icon"
+            android:backgroundTint="@color/grey"
+            app:borderWidth="0dp"
+            android:visibility="gone"
+            android:contentDescription="@string/config_values"
+            app:layout_constraintEnd_toEndOf="@id/floatBTN"
+            app:layout_constraintBottom_toTopOf="@id/floatBTN"
+            />
+
+        <TextView
+            android:id="@+id/calibFileTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ficha Calibração"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:paddingHorizontal="25dp"
+            android:paddingVertical="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toStartOf="@id/calibFileFloatBTN"
+            app:layout_constraintTop_toTopOf="@id/calibFileFloatBTN"
+            app:layout_constraintBottom_toBottomOf="@id/calibFileFloatBTN"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </RelativeLayout>

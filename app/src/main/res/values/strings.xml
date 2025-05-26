@@ -24,5 +24,6 @@
     <string name="legend">* Required</string>
     <string name="config_values">Config Values</string>
     <string name="percentage">%</string>
+    <string name="main_float">main_float</string>
 </resources>
 
