@@ -96,7 +96,10 @@ class MainActivity : AppCompatActivity() {
 
         // opening Calibration Values Activity
         buttonCalibFileFloat.setOnClickListener {
-            intentValues(this, CalibrationValuesActivity::class.java)
+            val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
+            val uMedEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
+            val uMedSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
+            intentValues(this, CalibrationValuesActivity::class.java, uMedSaida = uMedSaidaEditText.text.toString(), uMedEntrada = uMedEntradaEditText.text.toString() )
         }
 
         // opening Config Values Dialog
@@ -277,14 +280,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     // function to call target activity
-    private fun intentValues(context:Context, targetActivity: Class<out Activity>, selectTab: Int? = null){
+    private fun intentValues(context:Context, targetActivity: Class<out Activity>, selectTab: Int? = null, uMedSaida: String? = null, uMedEntrada: String? = null ){
         if (isVariablesInitialized()) {
             val intent = Intent(context, targetActivity)
             intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
             intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
             intent.putExtra("cemInput", cemValueEntrada.toFloat())
             intent.putExtra("cemOutput", cemValueSaida.toFloat())
-            selectTab?.let { intent.putExtra("selectedTab", it) }
+            if (selectTab != null) {
+                intent.putExtra("selectedTab", selectTab)
+            } else {
+                intent.putExtra("uMedSaida", uMedSaida)
+                intent.putExtra("uMedEntrada", uMedEntrada)
+            }
+
             startActivity(intent)
         } else {
             // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
@@ -403,6 +412,7 @@ class MainActivity : AppCompatActivity() {
 
         itemAdapterOutput.submitList(outputData)
         // Notifique os adaptadores de que os dados foram alterados
+        // this maybe belong in adapter
         itemAdapterInput.notifyDataSetChanged()
         itemAdapterOutput.notifyDataSetChanged()
     }
