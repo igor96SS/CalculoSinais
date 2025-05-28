@@ -25,5 +25,7 @@
     <string name="config_values">Config Values</string>
     <string name="percentage">%</string>
     <string name="main_float">main_float</string>
+    <string name="ficha_calibracao">Ficha Calibração</string>
+    <string name="valores_config">Valores Config</string>
 </resources>
 
