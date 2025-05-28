@@ -1,5 +1,7 @@
 package team.iscode.igor.calculosinais
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 
 import androidx.appcompat.app.AppCompatActivity
@@ -92,7 +94,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // opening Calibration Values Activity
+        buttonCalibFileFloat.setOnClickListener {
+            intentValues(this, CalibrationValuesActivity::class.java)
+        }
 
+        // opening Config Values Dialog
         buttonConfig.setOnClickListener {
             collapseFab()
             val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
@@ -199,43 +206,11 @@ class MainActivity : AppCompatActivity() {
 
 
         cardBoxInput.setOnClickListener {
-            if (isVariablesInitialized()) {
-                val intent = Intent(this, TabsActivity::class.java)
-                intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
-                intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
-                intent.putExtra("cemInput", cemValueEntrada.toFloat())
-                intent.putExtra("cemOutput", cemValueSaida.toFloat())
-                intent.putExtra("selectedTab", 0)
-                startActivity(intent)
-            } else {
-                // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
-                val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
-                    .setTitle("Erro")
-                    .setMessage("Por favor, preencha os valores no diálogo de configuração.")
-                    .setPositiveButton("OK", null)
-                    .create()
-                alertDialog.show()
-            }
+            intentValues(this, TabsActivity::class.java, 0)
         }
 
         cardBoxOutput.setOnClickListener {
-            if (isVariablesInitialized()) {
-                val intent = Intent(this, TabsActivity::class.java)
-                intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
-                intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
-                intent.putExtra("cemInput", cemValueEntrada.toFloat())
-                intent.putExtra("cemOutput", cemValueSaida.toFloat())
-                intent.putExtra("selectedTab", 1)
-                startActivity(intent)
-            } else {
-                // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
-                val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
-                    .setTitle("Erro")
-                    .setMessage("Por favor, preencha os valores no diálogo de configuração.")
-                    .setPositiveButton("OK", null)
-                    .create()
-                alertDialog.show()
-            }
+            intentValues(this, TabsActivity::class.java, 1)
         }
 
 
@@ -301,6 +276,28 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    // function to call target activity
+    private fun intentValues(context:Context, targetActivity: Class<out Activity>, selectTab: Int? = null){
+        if (isVariablesInitialized()) {
+            val intent = Intent(context, targetActivity)
+            intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
+            intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
+            intent.putExtra("cemInput", cemValueEntrada.toFloat())
+            intent.putExtra("cemOutput", cemValueSaida.toFloat())
+            selectTab?.let { intent.putExtra("selectedTab", it) }
+            startActivity(intent)
+        } else {
+            // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
+            val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+                .setTitle("Erro")
+                .setMessage("Por favor, preencha os valores no diálogo de configuração.")
+                .setPositiveButton("OK", null)
+                .create()
+            alertDialog.show()
+        }
+    }
+
+    //function to collapse floating button
     private fun collapseFab(){
         isExpanded = !isExpanded
         buttonConfig.visibility = View.GONE
@@ -310,6 +307,7 @@ class MainActivity : AppCompatActivity() {
         floatLayoutConst.background = null
     }
 
+    //function to expand floating button
     private fun expandFab(){
         isExpanded = !isExpanded
         buttonConfig.visibility = View.VISIBLE

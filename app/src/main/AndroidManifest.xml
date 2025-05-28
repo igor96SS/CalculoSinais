@@ -11,6 +11,9 @@
         android:theme="@style/AppTheme"
         tools:targetApi="34">
         <activity
+            android:name=".CalibrationValuesActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -21,8 +24,7 @@
         </activity>
         <activity
             android:name=".TabsActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>
