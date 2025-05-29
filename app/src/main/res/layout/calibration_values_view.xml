@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/grey">
+
+    <!-- Coluna 1 -->
+    <EditText
+        android:id="@+id/percentageValueET"
+        android:textSize="18sp"
+        android:textColor="@color/dirtyWhite"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"/>
+
+    <!-- Coluna 2 -->
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:id="@+id/signalValueTv"
+        android:textSize="18sp"
+        android:textColor="@color/dirtyWhite"
+        android:textAlignment="textEnd"
+        android:paddingEnd="5dp"
+        android:paddingStart="1dp"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"/>
+
+    <!-- Coluna 3 dividido ao meio-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/maxErrorPercentEt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Max Erro %" />
+
+        <TextView
+            android:id="@+id/acceptanceLimitTv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="2dp"
+            android:text="Limite Aceitação"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
