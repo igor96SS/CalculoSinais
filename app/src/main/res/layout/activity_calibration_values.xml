@@ -7,4 +7,194 @@
     android:layout_height="match_parent"
     tools:context=".CalibrationValuesActivity">
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:rowCount="2"
+        android:columnCount="1"
+        android:background="@color/darkGrey">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewCalibration"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="0"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/grey">
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleInput"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/valores_calculados"
+                        android:textSize="18sp"/>
+
+                    <Spinner
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="10dp"
+                        android:id="@+id/spinnerEntrada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:entries="@array/spinner"
+                        android:popupBackground="@color/grey"/>
+
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1,2,3,6">
+
+                    <TableRow
+                        android:layout_marginTop="6dp"
+                        >
+                        <TextView
+                            android:layout_column="1"
+                            android:text="@string/percentage"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_column="5"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="start"
+                            android:text="@string/unidade_de_medida"
+                            android:textColor="@color/black"
+                            android:textSize="15sp" />
+                        <TextView
+                            android:id="@+id/uMedidaEntradaValue"
+                            android:layout_width="wrap_content"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/dirtyWhite"
+                            android:layout_marginEnd="5dp"/>
+                    </TableRow>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewEntrada"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"/>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewSaida"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_column="0"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/grey">
+
+            <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/grey">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txtValorSaida"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"/>
+
+                    <Spinner
+
+                        android:layout_marginStart="50dp"
+                        android:id="@+id/spinnerSaida"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:entries="@array/spinner"
+                        android:popupBackground="@color/grey"/>
+
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_marginTop="6dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="1,2,3,6">
+
+                    <TableRow>
+                        <TextView
+                            android:layout_column="1"
+                            android:text="@string/percentage"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_column="5"
+                            android:text="@string/unidade_de_medida"
+                            android:gravity="start"
+                            android:textSize="15sp"
+                            android:textColor="@color/black"
+                            android:layout_marginStart="50dp"
+                            android:layout_marginEnd="5dp"
+                            />
+
+                        <TextView
+                            android:id="@+id/uMedidaSaidaValue"
+                            android:layout_width="wrap_content"
+                            android:layout_column="2"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/dirtyWhite"
+                            android:layout_marginEnd="5dp"
+                            />
+                    </TableRow>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewSaida"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </GridLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
