@@ -1,7 +1,11 @@
 package team.iscode.igor.calculosinais.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import team.iscode.igor.calculosinais.R
 import team.iscode.igor.calculosinais.adapters.ItemAdapter.InputViewHolder
@@ -24,6 +28,30 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        when (holder) {
+            is InputViewHolder -> holder.bind(calibrationList[position])
+        }
     }
+
+    fun setCalibrationList(newList: List<CalibrationValues>) {
+        calibrationList = newList
+        notifyDataSetChanged()
+    }
+
+    class InputViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val percentageET: EditText = itemView.findViewById(R.id.percentageValueET)
+        private val signalTV: TextView = itemView.findViewById(R.id.signalValueTv)
+        private val maxErrorEt: EditText = itemView.findViewById(R.id.maxErrorPercentEt)
+        private val acceptanceLimitTv: TextView = itemView.findViewById(R.id.acceptanceLimitTv)
+
+        fun bind(item: CalibrationValues) {
+            percentageET.setText(item.percentage.toString())
+            signalTV.text = item.inputValues.toString()
+
+            maxErrorEt.setText("")
+            acceptanceLimitTv.text = 0.toString()/* valor calculado */
+        }
+    }
+
+
 }
