@@ -92,7 +92,7 @@
                         </TableRow>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recyclerViewEntrada"
+                            android:id="@+id/recyclerViewCalibration"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:clickable="true"/>
@@ -184,7 +184,7 @@
                             />
                     </TableRow>
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewSaida"
+                        android:id="@+id/recyclerViewVerification"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
