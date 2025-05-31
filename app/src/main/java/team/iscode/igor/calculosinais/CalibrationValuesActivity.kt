@@ -1,13 +1,15 @@
 package team.iscode.igor.calculosinais
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import team.iscode.igor.calculosinais.adapters.CalibrationValuesAdapter
-import team.iscode.igor.calculosinais.adapters.ItemAdapter
 import team.iscode.igor.calculosinais.databinding.ActivityCalibrationValuesBinding
 import team.iscode.igor.calculosinais.models.CalibrationValues
+import java.util.Locale
 import kotlin.math.pow
 
 class CalibrationValuesActivity : AppCompatActivity() {
@@ -36,8 +38,45 @@ class CalibrationValuesActivity : AppCompatActivity() {
 
         initRecyclerView()
 
-        calibrationValuesResult = calcOutput(zeroInput.toFloat(),cemInput.toFloat(), zeroOutput.toFloat(), cemOutput.toFloat())
+        calibrationValuesResult = calcOutput(zeroInput, cemInput, zeroOutput, cemOutput)
         addDataSet(calibrationValuesResult)
+
+        binding.uMedidaEntradaValue.text = uMedEntrada
+
+        binding.sUncertaintyEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val uncertainty = s?.toString()?.toFloatOrNull()
+                val errorPercent = binding.maxErrorPercentEt.text?.toString()?.toIntOrNull()
+
+                if (uncertainty != null && errorPercent != null) {
+                    val acceptanceLimit = limitCalculation(errorPercent, zeroInput, cemInput, uncertainty)
+                    binding.acceptanceLimitTv.text = String.format(Locale.US, "%.2f", acceptanceLimit)
+                } else {
+                    binding.acceptanceLimitTv.text = ""
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+
+        binding.maxErrorPercentEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val errorPercent = s?.toString()?.toIntOrNull()
+                val uncertainty = binding.sUncertaintyEt.text?.toString()?.toFloatOrNull()
+
+                if (errorPercent != null && uncertainty != null) {
+                    val acceptanceLimit = limitCalculation(errorPercent, zeroInput, cemInput, uncertainty)
+                    binding.acceptanceLimitTv.text = String.format(Locale.US, "%.2f", acceptanceLimit)
+                } else {
+                    binding.acceptanceLimitTv.text = ""
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
 
 
 
@@ -117,6 +156,10 @@ class CalibrationValuesActivity : AppCompatActivity() {
             calibrationValuesAdapter = CalibrationValuesAdapter()
             adapter = calibrationValuesAdapter
         }
+    }
+
+    private fun limitCalculation(maxErrorPercent:Int?, zeroValueInput: Float, cemValueInput: Float, sUncertainty: Float?): Float{
+        return ((cemValueInput-zeroValueInput)* maxErrorPercent!! /100)-sUncertainty!!
     }
 
 }
