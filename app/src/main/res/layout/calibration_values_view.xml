@@ -28,33 +28,4 @@
         android:textColor="@color/dirtyWhite"
         android:gravity="end" />
 
-    <!-- Coluna 3: Duas linhas (Max erro e Limite) -->
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:orientation="vertical"
-        android:layout_margin="4dp">
-
-        <EditText
-            android:id="@+id/maxErrorPercentEt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Max Erro %"
-            android:textSize="14sp"
-            android:inputType="numberDecimal"
-            android:gravity="center" />
-
-        <TextView
-            android:id="@+id/acceptanceLimitTv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Limite Aceitação"
-            android:textSize="14sp"
-            android:gravity="center" />
-    </LinearLayout>
-
-
-
-
 </LinearLayout>
