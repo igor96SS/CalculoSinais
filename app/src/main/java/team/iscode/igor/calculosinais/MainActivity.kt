@@ -96,10 +96,9 @@ class MainActivity : AppCompatActivity() {
 
         // opening Calibration Values Activity
         buttonCalibFileFloat.setOnClickListener {
-            val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
-            val uMedEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
-            val uMedSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
-            intentValues(this, CalibrationValuesActivity::class.java, uMedSaida = uMedSaidaEditText.text.toString(), uMedEntrada = uMedEntradaEditText.text.toString() )
+            val uMedEntradaEditText = unidadeMedidaEntrada.text
+            val uMedSaidaEditText = unidadeMedidaSaida.text
+            intentValues(this, CalibrationValuesActivity::class.java, uMedSaida = uMedSaidaEditText.toString(), uMedEntrada = uMedEntradaEditText.toString() )
         }
 
         // opening Config Values Dialog
@@ -290,8 +289,8 @@ class MainActivity : AppCompatActivity() {
             if (selectTab != null) {
                 intent.putExtra("selectedTab", selectTab)
             } else {
-                intent.putExtra("uMedSaida", uMedSaida)
-                intent.putExtra("uMedEntrada", uMedEntrada)
+                intent.putExtra("uMedSaida", uMedSaida.toString())
+                intent.putExtra("uMedEntrada", uMedEntrada.toString())
             }
 
             startActivity(intent)
