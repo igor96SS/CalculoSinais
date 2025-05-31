@@ -92,11 +92,60 @@
                             android:layout_marginEnd="5dp"/>
                     </TableRow>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerViewEntrada"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:clickable="true"/>
+                        android:orientation="horizontal"
+                        android:padding="8dp">
+
+                        <!-- RecyclerView ocupa a maior parte do espaço -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewEntrada"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:background="#EEEEEE" />
+
+                        <!-- Coluna lateral com EditText e TextView -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="5dp">
+
+
+                            <EditText
+                                android:id="@+id/sUncertaintyEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Incerteza Padrão"
+                                android:inputType="numberDecimal"
+                                android:textSize="14sp"
+                                android:gravity="center" />
+
+                            <EditText
+                                android:id="@+id/maxErrorPercentEt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Max Erro %"
+                                android:inputType="numberDecimal"
+                                android:textSize="14sp"
+                                android:gravity="center" />
+
+                            <TextView
+                                android:id="@+id/acceptanceLimitTv"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Limite Aceitação"
+                                android:textSize="14sp"
+                                android:gravity="center"
+                                android:layout_marginTop="8dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
 
                 </TableLayout>
 
