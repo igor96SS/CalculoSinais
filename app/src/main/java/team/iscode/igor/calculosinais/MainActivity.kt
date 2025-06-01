@@ -96,123 +96,41 @@ class MainActivity : AppCompatActivity() {
 
         // opening Calibration Values Activity
         buttonCalibFileFloat.setOnClickListener {
-            val uMedEntradaEditText = unidadeMedidaEntrada.text
-            val uMedSaidaEditText = unidadeMedidaSaida.text
-            intentValues(this, CalibrationValuesActivity::class.java, uMedSaida = uMedSaidaEditText.toString(), uMedEntrada = uMedEntradaEditText.toString() )
+            collapseFab()
+            if (isVariablesInitialized()){
+                intentValues(this, CalibrationValuesActivity::class.java)
+            }
+            else{
+                openConfigDialog{
+                    intentValues(this, CalibrationValuesActivity::class.java)
+                }
+            }
         }
 
         // opening Config Values Dialog
         buttonConfig.setOnClickListener {
             collapseFab()
-            val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
-            val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
-                .setView(dialogView)
-                .setPositiveButton("Salvar", null)
-                .create()
-
-            alertDialog.setOnShowListener {
-                val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
-                val unidadeMedidaEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
-                val zeroValueEntradaEditText = dialogView.findViewById<EditText>(R.id.zeroValueEntrada)
-                val cemValueEntradaEditText = dialogView.findViewById<EditText>(R.id.cemValueEntrada)
-                val unidadeMedidaSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
-                val zeroValueSaidaEditText = dialogView.findViewById<EditText>(R.id.zeroValueSaida)
-                val cemValueSaidaEditText = dialogView.findViewById<EditText>(R.id.cemValueSaida)
-
-                // Keyboard button click
-                val editorActionListener = TextView.OnEditorActionListener { _, actionId, keyEvent ->
-                    if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER) {
-                        // Chama a ação do botão positivo
-                        positiveButton.performClick()
-                        return@OnEditorActionListener true
-                    }
-                    return@OnEditorActionListener false
-                }
-
-                //set focus so that keyboard change works on all edittexts
-                unidadeMedidaEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-                zeroValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-                cemValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-                unidadeMedidaSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-                zeroValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-                cemValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
-
-                //add listening to all edittexts
-                unidadeMedidaEntradaEditText.setOnEditorActionListener(editorActionListener)
-                zeroValueEntradaEditText.setOnEditorActionListener(editorActionListener)
-                cemValueEntradaEditText.setOnEditorActionListener(editorActionListener)
-                unidadeMedidaSaidaEditText.setOnEditorActionListener(editorActionListener)
-                zeroValueSaidaEditText.setOnEditorActionListener(editorActionListener)
-                cemValueSaidaEditText.setOnEditorActionListener(editorActionListener)
-
-
-                positiveButton.setOnClickListener {
-
-
-                    if (zeroValueEntradaEditText.text.isEmpty()) {
-                        zeroValueEntradaEditText.error = "Campo obrigatório"
-                    } else {
-                        zeroValueEntradaEditText.error = null
-                    }
-
-                    if (cemValueEntradaEditText.text.isEmpty()) {
-                        cemValueEntradaEditText.error = "Campo obrigatório"
-                    } else {
-                        cemValueEntradaEditText.error = null
-                    }
-
-                    if (zeroValueSaidaEditText.text.isEmpty()) {
-                        zeroValueSaidaEditText.error = "Campo obrigatório"
-                    } else {
-                        zeroValueSaidaEditText.error = null
-                    }
-
-                    if (cemValueSaidaEditText.text.isEmpty()) {
-                        cemValueSaidaEditText.error = "Campo obrigatório"
-                    } else {
-                        cemValueSaidaEditText.error = null
-                    }
-
-                    // Verifique se todos os campos estão preenchidos
-                    val allFieldsFilled = zeroValueEntradaEditText.text.isNotEmpty() &&
-                            cemValueEntradaEditText.text.isNotEmpty() &&
-                            zeroValueSaidaEditText.text.isNotEmpty() &&
-                            cemValueSaidaEditText.text.isNotEmpty()
-
-                    if (allFieldsFilled) {
-
-                        // VALORES ENTRADA
-                        unidadeMedidaEntrada.text = unidadeMedidaEntradaEditText.text.toString()
-                        zeroValueEntrada = zeroValueEntradaEditText.text.toString()
-                        cemValueEntrada = cemValueEntradaEditText.text.toString()
-
-
-                        // VALORES SAIDA
-
-                        unidadeMedidaSaida.text = unidadeMedidaSaidaEditText.text.toString()
-                        zeroValueSaida = zeroValueSaidaEditText.text.toString()
-                        cemValueSaida = cemValueSaidaEditText.text.toString()
-
-                        outputResult = calcOutput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
-                        inputResult = calcInput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
-                        addDataSet(outputResult, inputResult)
-
-                        alertDialog.dismiss()
-
-                    }
-                }
-            }
-
-            alertDialog.show()
+            openConfigDialog()
         }
 
 
         cardBoxInput.setOnClickListener {
-            intentValues(this, TabsActivity::class.java, 0)
+            if (isVariablesInitialized()){
+                intentValues(this, TabsActivity::class.java, 0)
+            }
+            else{
+                errorMessage()
+            }
+
         }
 
         cardBoxOutput.setOnClickListener {
-            intentValues(this, TabsActivity::class.java, 1)
+            if (isVariablesInitialized()){
+                intentValues(this, TabsActivity::class.java, 1)
+            }else{
+                errorMessage()
+            }
+
         }
 
 
@@ -278,31 +196,136 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    // function to call target activity
-    private fun intentValues(context:Context, targetActivity: Class<out Activity>, selectTab: Int? = null, uMedSaida: String? = null, uMedEntrada: String? = null ){
-        if (isVariablesInitialized()) {
-            val intent = Intent(context, targetActivity)
-            intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
-            intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
-            intent.putExtra("cemInput", cemValueEntrada.toFloat())
-            intent.putExtra("cemOutput", cemValueSaida.toFloat())
-            if (selectTab != null) {
-                intent.putExtra("selectedTab", selectTab)
-            } else {
-                intent.putExtra("uMedSaida", uMedSaida.toString())
-                intent.putExtra("uMedEntrada", uMedEntrada.toString())
+    // Open config dialog
+    // callback function to use async in calib file
+    private fun openConfigDialog(onConfirmed: () -> Unit = {}){
+        val dialogView = layoutInflater.inflate(R.layout.layout_config_dialog, null)
+        val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+            .setView(dialogView)
+            .setPositiveButton("Salvar", null)
+            .create()
+
+        alertDialog.setOnShowListener {
+            val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            val unidadeMedidaEntradaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaEntrada)
+            val zeroValueEntradaEditText = dialogView.findViewById<EditText>(R.id.zeroValueEntrada)
+            val cemValueEntradaEditText = dialogView.findViewById<EditText>(R.id.cemValueEntrada)
+            val unidadeMedidaSaidaEditText = dialogView.findViewById<EditText>(R.id.unidadeMedidaSaida)
+            val zeroValueSaidaEditText = dialogView.findViewById<EditText>(R.id.zeroValueSaida)
+            val cemValueSaidaEditText = dialogView.findViewById<EditText>(R.id.cemValueSaida)
+
+            // Keyboard button click
+            val editorActionListener = TextView.OnEditorActionListener { _, actionId, keyEvent ->
+                if (actionId == EditorInfo.IME_ACTION_DONE || keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER) {
+                    // Chama a ação do botão positivo
+                    positiveButton.performClick()
+                    return@OnEditorActionListener true
+                }
+                return@OnEditorActionListener false
             }
 
-            startActivity(intent)
-        } else {
-            // Variáveis não inicializadas, exiba uma mensagem de erro em um diálogo
-            val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
-                .setTitle("Erro")
-                .setMessage("Por favor, preencha os valores no diálogo de configuração.")
-                .setPositiveButton("OK", null)
-                .create()
-            alertDialog.show()
+            //set focus so that keyboard change works on all edittexts
+            unidadeMedidaEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            zeroValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            cemValueEntradaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            unidadeMedidaSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            zeroValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+            cemValueSaidaEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+
+            //add listening to all edittexts
+            unidadeMedidaEntradaEditText.setOnEditorActionListener(editorActionListener)
+            zeroValueEntradaEditText.setOnEditorActionListener(editorActionListener)
+            cemValueEntradaEditText.setOnEditorActionListener(editorActionListener)
+            unidadeMedidaSaidaEditText.setOnEditorActionListener(editorActionListener)
+            zeroValueSaidaEditText.setOnEditorActionListener(editorActionListener)
+            cemValueSaidaEditText.setOnEditorActionListener(editorActionListener)
+
+            positiveButton.setOnClickListener {
+
+
+                if (zeroValueEntradaEditText.text.isEmpty()) {
+                    zeroValueEntradaEditText.error = "Campo obrigatório"
+                } else {
+                    zeroValueEntradaEditText.error = null
+                }
+
+                if (cemValueEntradaEditText.text.isEmpty()) {
+                    cemValueEntradaEditText.error = "Campo obrigatório"
+                } else {
+                    cemValueEntradaEditText.error = null
+                }
+
+                if (zeroValueSaidaEditText.text.isEmpty()) {
+                    zeroValueSaidaEditText.error = "Campo obrigatório"
+                } else {
+                    zeroValueSaidaEditText.error = null
+                }
+
+                if (cemValueSaidaEditText.text.isEmpty()) {
+                    cemValueSaidaEditText.error = "Campo obrigatório"
+                } else {
+                    cemValueSaidaEditText.error = null
+                }
+
+                // Verifique se todos os campos estão preenchidos
+                val allFieldsFilled = zeroValueEntradaEditText.text.isNotEmpty() &&
+                        cemValueEntradaEditText.text.isNotEmpty() &&
+                        zeroValueSaidaEditText.text.isNotEmpty() &&
+                        cemValueSaidaEditText.text.isNotEmpty()
+
+                if (allFieldsFilled) {
+
+                    // VALORES ENTRADA
+                    unidadeMedidaEntrada.text = unidadeMedidaEntradaEditText.text.toString()
+                    zeroValueEntrada = zeroValueEntradaEditText.text.toString()
+                    cemValueEntrada = cemValueEntradaEditText.text.toString()
+
+
+                    // VALORES SAIDA
+
+                    unidadeMedidaSaida.text = unidadeMedidaSaidaEditText.text.toString()
+                    zeroValueSaida = zeroValueSaidaEditText.text.toString()
+                    cemValueSaida = cemValueSaidaEditText.text.toString()
+
+                    outputResult = calcOutput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    inputResult = calcInput(zeroValueEntrada.toFloat(),cemValueEntrada.toFloat(), zeroValueSaida.toFloat(), cemValueSaida.toFloat())
+                    addDataSet(outputResult, inputResult)
+
+                    alertDialog.dismiss()
+                    onConfirmed()
+                }
+            }
         }
+
+        alertDialog.show()
+    }
+
+    // function to call target activity
+    private fun intentValues(context:Context, targetActivity: Class<out Activity>, selectTab: Int? = null){
+
+        val intent = Intent(context, targetActivity)
+        intent.putExtra("zeroInput", zeroValueEntrada.toFloat())
+        intent.putExtra("zeroOutput", zeroValueSaida.toFloat())
+        intent.putExtra("cemInput", cemValueEntrada.toFloat())
+        intent.putExtra("cemOutput", cemValueSaida.toFloat())
+        if (selectTab != null) {
+            intent.putExtra("selectedTab", selectTab)
+        } else {
+            intent.putExtra("uMedSaida", unidadeMedidaSaida.text)
+            intent.putExtra("uMedEntrada", unidadeMedidaEntrada.text)
+        }
+
+        startActivity(intent)
+    }
+
+    // alert dialog displaying error message for empty values
+    private fun errorMessage(){
+        val alertDialog = AlertDialog.Builder(this, R.style.MyDialogTheme)
+            .setTitle("Erro")
+            .setMessage("Por favor, preencha os valores no diálogo de configuração.")
+            .setPositiveButton("OK", null)
+            .create()
+        alertDialog.show()
     }
 
     //function to collapse floating button
