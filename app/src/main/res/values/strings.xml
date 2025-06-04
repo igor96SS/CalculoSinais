@@ -28,5 +28,8 @@
     <string name="ficha_calibracao">Ficha Calibração</string>
     <string name="valores_config">Valores Config</string>
     <string name="valores_calculados">Valores Cálculados</string>
+    <string name="saida_txt">Saída</string>
+    <string name="padrao_txt">Padrão</string>
+    <string name="erro_txt">Erro</string>
 </resources>
 

@@ -16,7 +16,7 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardViewCalibration"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_width="match_parent"
@@ -96,14 +96,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:padding="8dp">
+                        >
 
                         <!-- RecyclerView ocupa a maior parte do espaço -->
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerViewCalibration"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
                             android:background="#EEEEEE" />
 
                         <!-- Coluna lateral com EditText e TextView -->
@@ -112,7 +112,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:orientation="vertical"
-                            android:paddingStart="8dp"
+                            android:paddingStart="5dp"
                             android:paddingEnd="5dp">
 
 
@@ -176,8 +176,37 @@
                 android:orientation="vertical"
                 android:background="@color/grey">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="3dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="150dp"
+                        android:text="@string/unidade_de_medida"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:id="@+id/uMedidaSaidaValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/dirtyWhite"
+                        android:textSize="20sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"/>
+
+                </LinearLayout>
+
                 <TableLayout
-                    android:layout_marginTop="6dp"
+                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stretchColumns="1,2,3,6">
@@ -185,30 +214,25 @@
                     <TableRow>
                         <TextView
                             android:layout_column="1"
-                            android:text="@string/percentage"
-                            android:textSize="20sp"
+                            android:text="@string/saida_txt"
+                            android:textSize="18sp"
                             android:textColor="@color/black"/>
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_column="5"
-                            android:text="@string/unidade_de_medida"
-                            android:gravity="start"
-                            android:textSize="15sp"
-                            android:textColor="@color/black"
-                            android:layout_marginStart="50dp"
-                            android:layout_marginEnd="5dp"
-                            />
+                            android:layout_column="2"
+                            android:text="@string/padrao_txt"
+                            android:textSize="18sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"/>
 
                         <TextView
-                            android:id="@+id/uMedidaSaidaValue"
-                            android:layout_width="wrap_content"
-                            android:layout_column="2"
-                            android:gravity="start"
-                            android:textSize="20sp"
-                            android:textColor="@color/dirtyWhite"
-                            android:layout_marginEnd="5dp"
-                            />
+                            android:layout_column="3"
+                            android:text="@string/erro_txt"
+                            android:textSize="18sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"/>
+
+
                     </TableRow>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewVerification"
