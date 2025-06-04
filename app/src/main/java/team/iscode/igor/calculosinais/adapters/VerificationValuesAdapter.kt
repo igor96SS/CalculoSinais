@@ -14,12 +14,9 @@ import java.util.Locale
 
 // storing a reference to the textWatcher on the EditText
 // prevent adding multiple TextWatchers when onBindViewHolder() is called multiple times
-private const val TEXT_WATCHER_TAG = 123456789  // valor qualquer, mas único
-private var EditText.textWatcher: TextWatcher?
-    get() = getTag(TEXT_WATCHER_TAG) as? TextWatcher
-    set(value) = setTag(TEXT_WATCHER_TAG, value)
 
-class VerificationValuesAdapter(private val inputValues: List<Float>) : RecyclerView.Adapter<VerificationValuesAdapter.InputViewHolder>() {
+
+class VerificationValuesAdapter(private var inputValues: List<Float>) : RecyclerView.Adapter<VerificationValuesAdapter.InputViewHolder>() {
 
     private val verificationValuesList = mutableListOf<VerificationValues>()
     var onDataChanged: (() -> Unit)? = null
@@ -36,43 +33,53 @@ class VerificationValuesAdapter(private val inputValues: List<Float>) : Recycler
         holder.bind(verificationValuesList[position])
     }
 
+    fun updateInputValueAt(position: Int, newInputValue: Float) {
+        if (position in inputValues.indices) {
+            // Cria uma nova lista com o novo valor atualizado
+            inputValues = inputValues.toMutableList().also {
+                it[position] = newInputValue
+            }
+            notifyItemChanged(position)
+        }
+    }
+
     fun setVerificationList(newList: List<VerificationValues>) {
         verificationValuesList.clear()
         verificationValuesList.addAll(newList)
         notifyDataSetChanged()
     }
 
-    fun getList(): List<VerificationValues> = verificationValuesList
+    fun updateOutputValueAt(position: Int, newOutputValue: Float) {
+        if (position in verificationValuesList.indices) {
+            val currentItem = verificationValuesList[position]
+            verificationValuesList[position] = currentItem.copy(outputValues = newOutputValue)
+            notifyItemChanged(position)
+        }
+    }
+
 
     inner class InputViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val outputValues: TextView = itemView.findViewById(R.id.outputValues)
         private val readValues: EditText = itemView.findViewById(R.id.readValues)
         private val error: TextView = itemView.findViewById(R.id.error)
 
+        private var currentWatcher: TextWatcher? = null
+
         fun bind(item: VerificationValues) {
-            outputValues.text = String.format(Locale.US, "%.2f", item.outputValues)
+            // Atualiza a UI no início
+            updateUI(item)
 
-            // Remove existing TextWatcher if present
-            readValues.textWatcher?.let { readValues.removeTextChangedListener(it) }
+            // Remove watcher anterior (caso exista)
+            currentWatcher?.let { readValues.removeTextChangedListener(it) }
 
-            // Create new TextWatcher
+            // Cria novo watcher
             val watcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     val newValue = s?.toString()?.toFloatOrNull()
                     item.readValues = newValue
 
-                    val inputValue = inputValues.getOrNull(adapterPosition) ?: 0f
-                    item.error = if (newValue != null) {
-                        inputValue - newValue
-                    } else {
-                        0f
-                    }
-
-                    error.text = if (newValue != null) {
-                        String.format(Locale.US, "%.2f", item.error)
-                    } else {
-                        ""
-                    }
+                    // Atualiza UI com base no novo valor introduzido
+                    updateUI(item)
 
                     onDataChanged?.invoke()
                 }
@@ -81,13 +88,28 @@ class VerificationValuesAdapter(private val inputValues: List<Float>) : Recycler
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             }
 
-            readValues.textWatcher = watcher
+            currentWatcher = watcher
             readValues.addTextChangedListener(watcher)
 
-            // Always show the current error
-            error.text = String.format(Locale.US, "%.2f", item.error)
+            // Preenche o campo de leitura com o valor atual (se aplicável)
+            readValues.setText(item.readValues?.toString() ?: "")
         }
+
+        private fun updateUI(item: VerificationValues) {
+            outputValues.text = String.format(Locale.US, "%.2f", item.outputValues)
+
+            val position = adapterPosition.takeIf { it != RecyclerView.NO_POSITION } ?: return
+            val inputValue = inputValues.getOrNull(position) ?: 0f
+
+            item.error = item.readValues?.let { inputValue - it } ?: 0f
+
+            error.text = item.readValues?.let {
+                String.format(Locale.US, "%.2f", item.error)
+            } ?: ""
+        }
+
     }
+
 }
 
 

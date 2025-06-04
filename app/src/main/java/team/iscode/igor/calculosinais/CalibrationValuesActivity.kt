@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import team.iscode.igor.calculosinais.adapters.CalibrationValuesAdapter
 import team.iscode.igor.calculosinais.adapters.VerificationValuesAdapter
 import team.iscode.igor.calculosinais.databinding.ActivityCalibrationValuesBinding
+import team.iscode.igor.calculosinais.interfaces.OnCalibrationChangedListener
 import team.iscode.igor.calculosinais.models.CalibrationValues
 import team.iscode.igor.calculosinais.models.VerificationValues
 import java.util.Locale
@@ -21,6 +22,7 @@ class CalibrationValuesActivity : AppCompatActivity() {
     private lateinit var verificationValuesAdapter: VerificationValuesAdapter
     private lateinit var spinnerAdapterInput: Spinner
     private var calibrationValuesResult: Map<Int,Float> = emptyMap()
+    private var inputValues: List<Float> = emptyList()
 
     private var verificationValuesResult: List<Float> = emptyList()
 
@@ -45,11 +47,26 @@ class CalibrationValuesActivity : AppCompatActivity() {
         val calibrationData = addCalibrationSet(calibrationValuesResult)
         calibrationValuesAdapter.setParams(zeroInput,cemInput,true)
 
-
         // Pass input values from calibration data to the verification adapter for error calculation
-        val inputValues = calibrationData.map { it.inputValues }
+        inputValues = calibrationData.map { it.inputValues }
         verificationValuesAdapter = VerificationValuesAdapter(inputValues)
         binding.recyclerViewVerification.adapter = verificationValuesAdapter
+
+        // Update output values when percentage change
+        calibrationValuesAdapter.setOnCalibrationChangedListener(object :
+            OnCalibrationChangedListener {
+            override fun onOutputValueChanged(position: Int, newPercentageValue: Float, newInputValue: Float) {
+                // Calcula novo sinal (inputValue)
+                val range = cemOutput - zeroOutput
+                val newOutputValue = (range * newPercentageValue / 100f) + zeroOutput
+
+                // Atualiza o valor no adapter de verificação
+                verificationValuesAdapter.updateInputValueAt(position, newInputValue)
+
+                verificationValuesAdapter.updateOutputValueAt(position, newOutputValue)
+            }
+        })
+
 
         // Sending values to adapter
         verificationValuesResult = calcInput(zeroInput, cemInput, zeroOutput, cemOutput)
