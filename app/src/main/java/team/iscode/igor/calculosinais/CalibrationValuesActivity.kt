@@ -3,6 +3,7 @@ package team.iscode.igor.calculosinais
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.MenuItem
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import team.iscode.igor.calculosinais.interfaces.OnCalibrationChangedListener
 import team.iscode.igor.calculosinais.models.CalibrationValues
 import team.iscode.igor.calculosinais.models.VerificationValues
 import java.util.Locale
+import java.util.Objects
 import kotlin.math.pow
 
 class CalibrationValuesActivity : AppCompatActivity() {
@@ -30,6 +32,9 @@ class CalibrationValuesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCalibrationValuesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Back Button
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val zeroInput = intent.getFloatExtra("zeroInput", 0.0f)
         val zeroOutput = intent.getFloatExtra("zeroOutput", 0.0f)
@@ -111,7 +116,6 @@ class CalibrationValuesActivity : AppCompatActivity() {
 
     }
 
-
     //Calculation of output values
     private fun calcOutput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
 
@@ -137,7 +141,6 @@ class CalibrationValuesActivity : AppCompatActivity() {
 
         return resultMap
     }
-
 
     //Calculation of input values
     private fun calcInput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): List<Float>{
@@ -180,7 +183,6 @@ class CalibrationValuesActivity : AppCompatActivity() {
         verificationValuesAdapter.setVerificationList(verificationData)
     }
 
-
     private fun initRecyclerView(){
         binding.recyclerViewCalibration.apply {
             layoutManager = LinearLayoutManager(this@CalibrationValuesActivity)
@@ -197,4 +199,12 @@ class CalibrationValuesActivity : AppCompatActivity() {
         return ((cemValueInput-zeroValueInput)* maxErrorPercent!! /100)-sUncertainty!!
     }
 
+    // Handles back button click
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish() // Closes current activity
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
