@@ -31,5 +31,6 @@
     <string name="saida_txt">Saída</string>
     <string name="padrao_txt">Padrão</string>
     <string name="erro_txt">Erro</string>
+    <string name="limite_aceitaco">Limite Aceitação</string>
 </resources>
 

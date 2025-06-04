@@ -67,7 +67,6 @@ class CalibrationValuesActivity : AppCompatActivity() {
             }
         })
 
-
         // Sending values to adapter
         verificationValuesResult = calcInput(zeroInput, cemInput, zeroOutput, cemOutput)
         setupVerificationSection(verificationValuesResult)
@@ -84,7 +83,7 @@ class CalibrationValuesActivity : AppCompatActivity() {
                     val acceptanceLimit = limitCalculation(errorPercent, zeroInput, cemInput, uncertainty)
                     binding.acceptanceLimitTv.text = String.format(Locale.US, "%.2f", acceptanceLimit)
                 } else {
-                    binding.acceptanceLimitTv.text = ""
+                    binding.acceptanceLimitTv.hint = getString(R.string.limite_aceitaco)
                 }
             }
 
@@ -102,7 +101,7 @@ class CalibrationValuesActivity : AppCompatActivity() {
                     val acceptanceLimit = limitCalculation(errorPercent, zeroInput, cemInput, uncertainty)
                     binding.acceptanceLimitTv.text = String.format(Locale.US, "%.2f", acceptanceLimit)
                 } else {
-                    binding.acceptanceLimitTv.text = ""
+                    binding.acceptanceLimitTv.hint = getString(R.string.limite_aceitaco)
                 }
             }
 
