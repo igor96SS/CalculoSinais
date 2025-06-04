@@ -43,6 +43,7 @@ class CalibrationValuesActivity : AppCompatActivity() {
 
         calibrationValuesResult = calcOutput(zeroInput, cemInput, zeroOutput, cemOutput)
         val calibrationData = addCalibrationSet(calibrationValuesResult)
+        calibrationValuesAdapter.setParams(zeroInput,cemInput,true)
 
 
         // Pass input values from calibration data to the verification adapter for error calculation
