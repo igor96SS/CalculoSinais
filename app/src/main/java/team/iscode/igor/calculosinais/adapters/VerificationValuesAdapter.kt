@@ -16,7 +16,9 @@ import java.util.Locale
 // prevent adding multiple TextWatchers when onBindViewHolder() is called multiple times
 
 
-class VerificationValuesAdapter(private var inputValues: List<Float>) : RecyclerView.Adapter<VerificationValuesAdapter.InputViewHolder>() {
+class VerificationValuesAdapter(initialInputValues: List<Float>) : RecyclerView.Adapter<VerificationValuesAdapter.InputViewHolder>() {
+
+    private var inputValues = initialInputValues.toMutableList()
 
     private val verificationValuesList = mutableListOf<VerificationValues>()
     var onDataChanged: (() -> Unit)? = null
@@ -43,6 +45,11 @@ class VerificationValuesAdapter(private var inputValues: List<Float>) : Recycler
         }
     }
 
+    fun getCurrentList(): List<VerificationValues> {
+        return verificationValuesList.toList() // cópia imutável
+    }
+
+
     fun setVerificationList(newList: List<VerificationValues>) {
         verificationValuesList.clear()
         verificationValuesList.addAll(newList)
@@ -56,6 +63,25 @@ class VerificationValuesAdapter(private var inputValues: List<Float>) : Recycler
             notifyItemChanged(position)
         }
     }
+
+    fun updateInputValues(newValues: List<Float>) {
+        inputValues.clear()
+        inputValues.addAll(newValues)
+        recalculateErrors()
+        notifyDataSetChanged()
+    }
+
+
+
+    private fun recalculateErrors() {
+        verificationValuesList.forEachIndexed { index, item ->
+            val inputValue = inputValues.getOrNull(index) ?: 0f
+            item.error = item.readValues?.let { inputValue - it } ?: 0f
+        }
+        notifyDataSetChanged()
+    }
+
+
 
 
     inner class InputViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

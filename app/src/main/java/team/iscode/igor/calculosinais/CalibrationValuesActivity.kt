@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +26,8 @@ class CalibrationValuesActivity : AppCompatActivity() {
     private lateinit var verificationValuesAdapter: VerificationValuesAdapter
     private lateinit var spinnerAdapterInput: Spinner
     private var calibrationValuesResult: Map<Int,Float> = emptyMap()
-    private var inputValues: List<Float> = emptyList()
+    private var inputValues = mutableListOf<Float>()
+
 
     private var verificationValuesResult: List<Float> = emptyList()
 
@@ -53,7 +56,7 @@ class CalibrationValuesActivity : AppCompatActivity() {
         calibrationValuesAdapter.setParams(zeroInput,cemInput,true)
 
         // Pass input values from calibration data to the verification adapter for error calculation
-        inputValues = calibrationData.map { it.inputValues }
+        inputValues = calibrationData.map { it.inputValues }.toMutableList()
         verificationValuesAdapter = VerificationValuesAdapter(inputValues)
         binding.recyclerViewVerification.adapter = verificationValuesAdapter
 
@@ -75,6 +78,21 @@ class CalibrationValuesActivity : AppCompatActivity() {
         // Sending values to adapter
         verificationValuesResult = calcInput(zeroInput, cemInput, zeroOutput, cemOutput)
         setupVerificationSection(verificationValuesResult)
+
+        spinnerAdapterInput.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                currentFocus?.clearFocus()
+                recalculateCalibrationValues(zeroInput, cemInput, zeroOutput, cemOutput)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+
+        }
 
         binding.uMedidaEntradaValue.text = uMedEntrada
         binding.uMedidaSaidaValue.text = uMedSaida
@@ -116,31 +134,64 @@ class CalibrationValuesActivity : AppCompatActivity() {
 
     }
 
+    private fun recalculateCalibrationValues(
+        zeroInput: Float,
+        cemInput: Float,
+        zeroOutput: Float,
+        cemOutput: Float
+    ) {
+        val currentPercentages = calibrationValuesAdapter.getPercentages()
+
+        calibrationValuesResult = calcOutput(zeroInput, cemInput, zeroOutput, cemOutput, currentPercentages)
+        val calibrationData = addCalibrationSet(calibrationValuesResult, currentPercentages)
+
+        calibrationValuesAdapter.setParams(
+            zeroInput,
+            cemInput,
+            spinnerAdapterInput.selectedItem.toString() != "Linear"
+        )
+
+        inputValues = calibrationData.map { it.inputValues }.toMutableList()
+
+        // Aqui estava o problema: updateInputValues apenas atualizava a lista sem sincronizar output
+        verificationValuesResult = calcInput(zeroInput, cemInput, zeroOutput, cemOutput)
+
+        // Solução correta: atualiza input e output em conjunto
+        setupVerificationSection(verificationValuesResult)
+    }
+
+
+
     //Calculation of output values
-    private fun calcOutput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): Map<Int,Float>{
-
+    private fun calcOutput(
+        zeroValueInput: Float,
+        cemValueInput: Float,
+        zeroValueOutput: Float,
+        cemValueOutput: Float,
+        customPercentages: List<Float> = listOf(0f, 25f, 50f, 75f, 100f)
+    ): Map<Int, Float> {
         val spinnerValue = spinnerAdapterInput.selectedItem.toString()
-        val resultMap = mutableMapOf<Int,Float>()
+        val resultMap = mutableMapOf<Int, Float>()
 
-        val rangeOut = cemValueOutput-zeroValueOutput
-        val rangeIn = cemValueInput-zeroValueInput
+        val rangeOut = cemValueOutput - zeroValueOutput
+        val rangeIn = cemValueInput - zeroValueInput
 
+        for (percentage in customPercentages) {
+            val valorOut = (rangeOut * (percentage / 100f)) + zeroValueOutput
+            val sRaiz = (((valorOut - zeroValueOutput) * rangeIn) / rangeOut) + zeroValueInput
 
-        for(percentage in listOf(0,25,50,75,100)){
-            val valorOut = (rangeOut*(percentage.toFloat()/100))+zeroValueOutput
-            val sRaiz = (((valorOut - zeroValueOutput)*rangeIn)/rangeOut)+zeroValueInput
-
-            if (spinnerValue == "Não Linear"){
-                val cRaiz = (sRaiz - zeroValueInput).pow(2f) /rangeIn + zeroValueInput
-                resultMap[percentage] = String.format("%.2f",cRaiz).replace(",",".").toFloat()
-
-            }else{
-                resultMap[percentage] = String.format("%.2f",sRaiz).replace(",",".").toFloat()
+            val input = if (spinnerValue == "Não Linear") {
+                ((sRaiz - zeroValueInput).pow(2f) / rangeIn) + zeroValueInput
+            } else {
+                sRaiz
             }
+
+            resultMap[percentage.toInt()] = String.format("%.2f", input).replace(",", ".").toFloat()
         }
 
         return resultMap
     }
+
 
     //Calculation of input values
     private fun calcInput(zeroValueInput: Float, cemValueInput: Float, zeroValueOutput: Float, cemValueOutput: Float): List<Float>{
@@ -160,28 +211,34 @@ class CalibrationValuesActivity : AppCompatActivity() {
     }
 
 
-    private fun addCalibrationSet(calibrationResult: Map<Int, Float>): List<CalibrationValues> {
-        val calibrationData = listOf(
-            CalibrationValues(0, calibrationResult[0] ?: 0.0f),
-            CalibrationValues(25, calibrationResult[25] ?: 0.0f),
-            CalibrationValues(50, calibrationResult[50] ?: 0.0f),
-            CalibrationValues(75, calibrationResult[75] ?: 0.0f),
-            CalibrationValues(100, calibrationResult[100] ?: 0.0f)
-        )
+    private fun addCalibrationSet(
+        calibrationResult: Map<Int, Float>,
+        customPercentages: List<Float> = listOf(0f, 25f, 50f, 75f, 100f)
+    ): List<CalibrationValues> {
+        val calibrationData = customPercentages.map {
+            CalibrationValues(it.toInt(), calibrationResult[it.toInt()] ?: 0f)
+        }
 
         calibrationValuesAdapter.setCalibrationList(calibrationData)
         return calibrationData
     }
 
-    private fun setupVerificationSection(
-        outputValues: List<Float>
-    ) {
-        val verificationData = outputValues.map {
-            VerificationValues(outputValues = it, readValues = null, error = 0f)
+
+    private fun setupVerificationSection(outputValues: List<Float>) {
+        val currentList = verificationValuesAdapter.getCurrentList()
+
+        val updatedList = outputValues.mapIndexed { index, output ->
+            val existing = currentList.getOrNull(index)
+            VerificationValues(
+                outputValues = output,
+                readValues = existing?.readValues, // preserva o valor digitado
+                error = existing?.error ?: 0f
+            )
         }
 
-        verificationValuesAdapter.setVerificationList(verificationData)
+        verificationValuesAdapter.setVerificationList(updatedList)
     }
+
 
     private fun initRecyclerView(){
         binding.recyclerViewCalibration.apply {

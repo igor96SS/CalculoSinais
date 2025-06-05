@@ -17,7 +17,7 @@ import kotlin.math.pow
 
 class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var calibrationList: List<CalibrationValues> = ArrayList()
+    private var calibrationList: MutableList<CalibrationValues> = mutableListOf()
     private var zeroInput: Float = 0f
     private var cemInput: Float = 0f
     private var isLinear: Boolean? = true
@@ -60,11 +60,16 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
     fun setCalibrationList(newList: List<CalibrationValues>) {
-        calibrationList = newList
+        calibrationList = newList.toMutableList()
+
+        // <-- INICIALIZA OS VALORES DE ENTRADA AQUI
         inputValues.clear()
-        inputValues.addAll(List(newList.size) { 0f }) // Inicializa com zeros
+        inputValues.addAll(newList.map { it.inputValues })
+
         notifyDataSetChanged()
     }
+
+
 
     fun getInputValues(): List<Float> {
         return inputValues
@@ -75,6 +80,11 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
             inputValues[position] = value
         }
     }
+
+    fun getPercentages(): List<Float> {
+        return calibrationList.map { it.percentage.toFloat() }
+    }
+
 
     class InputViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val percentageET: EditText = itemView.findViewById(R.id.percentageValueET)
@@ -101,18 +111,17 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                     val newPercentage = s?.toString()?.toFloatOrNull()
 
                     newPercentage?.let {
+                        item.percentage = it.toInt() // <- Atualiza a lista
                         val range = cemInput - zeroInput
                         val newSignal = if (isLinear == true) {
                             (range * it / 100) + zeroInput
                         } else {
-                            (range * it / 100).pow(2)/ range + zeroInput
+                            (range * it / 100).pow(2) / range + zeroInput
                         }
 
                         signalTV.text = String.format("%.2f", newSignal)
 
-                        // Atualiza lista interna de valores calculados
                         onInputUpdated(position, newSignal)
-
                         listener?.onOutputValueChanged(adapterPosition, it, newSignal)
 
                     } ?: run {
@@ -120,6 +129,7 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                         onInputUpdated(position, 0f)
                     }
                 }
+
             })
         }
     }
