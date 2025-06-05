@@ -12,10 +12,6 @@ import team.iscode.igor.calculosinais.R
 import team.iscode.igor.calculosinais.models.VerificationValues
 import java.util.Locale
 
-// storing a reference to the textWatcher on the EditText
-// prevent adding multiple TextWatchers when onBindViewHolder() is called multiple times
-
-
 class VerificationValuesAdapter(initialInputValues: List<Float>) : RecyclerView.Adapter<VerificationValuesAdapter.InputViewHolder>() {
 
     private var inputValues = initialInputValues.toMutableList()
@@ -71,8 +67,6 @@ class VerificationValuesAdapter(initialInputValues: List<Float>) : RecyclerView.
         notifyDataSetChanged()
     }
 
-
-
     private fun recalculateErrors() {
         verificationValuesList.forEachIndexed { index, item ->
             val inputValue = inputValues.getOrNull(index) ?: 0f
@@ -80,9 +74,6 @@ class VerificationValuesAdapter(initialInputValues: List<Float>) : RecyclerView.
         }
         notifyDataSetChanged()
     }
-
-
-
 
     inner class InputViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val outputValues: TextView = itemView.findViewById(R.id.outputValues)
@@ -133,9 +124,7 @@ class VerificationValuesAdapter(initialInputValues: List<Float>) : RecyclerView.
                 String.format(Locale.US, "%.2f", item.error)
             } ?: ""
         }
-
     }
-
 }
 
 

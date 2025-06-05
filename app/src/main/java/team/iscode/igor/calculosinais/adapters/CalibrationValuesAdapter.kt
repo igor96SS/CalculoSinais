@@ -1,6 +1,5 @@
 package team.iscode.igor.calculosinais.adapters
 
-import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import team.iscode.igor.calculosinais.R
 import team.iscode.igor.calculosinais.interfaces.OnCalibrationChangedListener
 import team.iscode.igor.calculosinais.models.CalibrationValues
-import java.util.ArrayList
 import kotlin.math.pow
 
 class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -70,10 +68,11 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
     }
 
 
-
+    /*
     fun getInputValues(): List<Float> {
         return inputValues
     }
+     */
 
     private fun updateInputValueAt(position: Int, value: Float) {
         if (position in inputValues.indices) {
@@ -129,7 +128,6 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                         onInputUpdated(position, 0f)
                     }
                 }
-
             })
         }
     }

@@ -152,14 +152,10 @@ class CalibrationValuesActivity : AppCompatActivity() {
         )
 
         inputValues = calibrationData.map { it.inputValues }.toMutableList()
-
-        // Aqui estava o problema: updateInputValues apenas atualizava a lista sem sincronizar output
         verificationValuesResult = calcInput(zeroInput, cemInput, zeroOutput, cemOutput)
 
-        // Solução correta: atualiza input e output em conjunto
         setupVerificationSection(verificationValuesResult)
     }
-
 
 
     //Calculation of output values
