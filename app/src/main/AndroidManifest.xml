@@ -12,6 +12,7 @@
         tools:targetApi="34">
         <activity
             android:name=".CalibrationValuesActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -24,7 +25,9 @@
         </activity>
         <activity
             android:name=".TabsActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
