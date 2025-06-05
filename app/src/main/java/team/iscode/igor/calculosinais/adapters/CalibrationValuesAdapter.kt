@@ -105,7 +105,7 @@ class CalibrationValuesAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()
                         val newSignal = if (isLinear == true) {
                             (range * it / 100) + zeroInput
                         } else {
-                            (range * it / 100).pow(2) + range + zeroInput
+                            (range * it / 100).pow(2)/ range + zeroInput
                         }
 
                         signalTV.text = String.format("%.2f", newSignal)
