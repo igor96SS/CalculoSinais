@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "team.iscode.igor.calculosinais"
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         applicationId "team.iscode.igor.calculosinais"
