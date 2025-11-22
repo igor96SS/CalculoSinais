@@ -11,7 +11,7 @@ android {
         applicationId "team.iscode.igor.calculosinais"
         minSdkVersion 28
         targetSdkVersion 34
-        versionCode = 10
+        versionCode = 11
         versionName = "3"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -19,7 +19,7 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
