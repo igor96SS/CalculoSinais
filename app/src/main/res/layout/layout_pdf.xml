@@ -1,33 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="595dp"
-    android:layout_height="842dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:layout_height="match_parent"
-    tools:layout_width="match_parent"
+
     android:padding="20dp"
     android:background="#FFFFFF">
 
-    <!-- Logo no topo -->
-    <ImageView
-        android:id="@+id/imageLogo"
-        android:layout_width="120dp"
-        android:layout_height="60dp"
-        android:contentDescription="Logo"
+    <!-- ESPAÇO PARA LOGO (200dp de altura) -->
+    <FrameLayout
+        android:id="@+id/logoArea"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Morada / Endereço (4 linhas) -->
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Logo"
+            android:layout_gravity="start|top"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
+            android:paddingTop="4dp"/>
+
+        <!-- Mantemos espaço vazio ao lado do logo para visualizar a área -->
+    </FrameLayout>
+
+    <!-- ===== 4 LINHAS DA MORADA (ALINHADAS À ESQUERDA) ===== -->
     <TextView
         android:id="@+id/lineAddress1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Morada linha 1"
         android:textSize="10sp"
-        app:layout_constraintTop_toBottomOf="@id/imageLogo"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/logoArea"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp"
+        android:gravity="start" />
 
     <TextView
         android:id="@+id/lineAddress2"
@@ -36,8 +51,10 @@
         android:text="Morada linha 2"
         android:textSize="10sp"
         app:layout_constraintTop_toBottomOf="@id/lineAddress1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/lineAddress1"
+        app:layout_constraintEnd_toEndOf="@id/lineAddress1"
+        android:layout_marginTop="2dp"
+        android:gravity="start" />
 
     <TextView
         android:id="@+id/lineAddress3"
@@ -46,8 +63,10 @@
         android:text="Morada linha 3"
         android:textSize="10sp"
         app:layout_constraintTop_toBottomOf="@id/lineAddress2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/lineAddress2"
+        app:layout_constraintEnd_toEndOf="@id/lineAddress2"
+        android:layout_marginTop="2dp"
+        android:gravity="start" />
 
     <TextView
         android:id="@+id/lineAddress4"
@@ -56,24 +75,26 @@
         android:text="Morada linha 4"
         android:textSize="10sp"
         app:layout_constraintTop_toBottomOf="@id/lineAddress3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="@id/lineAddress3"
+        app:layout_constraintEnd_toEndOf="@id/lineAddress3"
+        android:layout_marginTop="2dp"
+        android:gravity="start" />
 
-    <!-- Título central -->
+    <!-- ===== TÍTULO CENTRAL ===== -->
     <TextView
         android:id="@+id/tvTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Ficha de Calibração"
-        android:textSize="18sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/lineAddress4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="10dp" />
 
-    <!-- Guideline para dividir colunas -->
+    <!-- guideline vertical centro -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineCenter"
         android:layout_width="wrap_content"
@@ -81,25 +102,25 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
 
-    <!-- Coluna esquerda: Cliente, Equipamento, Descrição, Marca, Modelo -->
+    <!-- ===== COLUNA ESQUERDA ===== -->
     <TextView
         android:id="@+id/labelCliente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cliente:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/tvCliente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelCliente"
         app:layout_constraintBaseline_toBaselineOf="@id/labelCliente"
         app:layout_constraintEnd_toStartOf="@id/guidelineCenter" />
@@ -110,18 +131,18 @@
         android:layout_height="wrap_content"
         android:text="Equipamento:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelCliente"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvEquipamento"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelEquipamento"
         app:layout_constraintBaseline_toBaselineOf="@id/labelEquipamento"
         app:layout_constraintEnd_toStartOf="@id/guidelineCenter" />
@@ -132,18 +153,18 @@
         android:layout_height="wrap_content"
         android:text="Descrição:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelEquipamento"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvDescricao"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelDescricao"
         app:layout_constraintBaseline_toBaselineOf="@id/labelDescricao"
         app:layout_constraintEnd_toStartOf="@id/guidelineCenter" />
@@ -154,18 +175,18 @@
         android:layout_height="wrap_content"
         android:text="Marca:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelDescricao"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvMarca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelMarca"
         app:layout_constraintBaseline_toBaselineOf="@id/labelMarca"
         app:layout_constraintEnd_toStartOf="@id/guidelineCenter" />
@@ -176,42 +197,42 @@
         android:layout_height="wrap_content"
         android:text="Modelo:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/labelMarca"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvModelo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelModelo"
         app:layout_constraintBaseline_toBaselineOf="@id/labelModelo"
         app:layout_constraintEnd_toStartOf="@id/guidelineCenter" />
 
-    <!-- Coluna direita: Obra, Data, TAG, Nº Série, Gama Entrada, Gama Saída, Erro Máx -->
+    <!-- ===== COLUNA DIREITA ===== -->
     <TextView
         android:id="@+id/labelObra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Obra:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@id/guidelineCenter"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp" />
 
     <TextView
         android:id="@+id/tvObra"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelObra"
         app:layout_constraintBaseline_toBaselineOf="@id/labelObra"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -222,18 +243,18 @@
         android:layout_height="wrap_content"
         android:text="Data:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/labelObra"
         app:layout_constraintTop_toBottomOf="@id/labelObra"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvData"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelData"
         app:layout_constraintBaseline_toBaselineOf="@id/labelData"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -244,18 +265,18 @@
         android:layout_height="wrap_content"
         android:text="TAG / Identificação:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/labelObra"
         app:layout_constraintTop_toBottomOf="@id/labelData"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvTag"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelTag"
         app:layout_constraintBaseline_toBaselineOf="@id/labelTag"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -266,140 +287,73 @@
         android:layout_height="wrap_content"
         android:text="N.º Série:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@id/labelObra"
         app:layout_constraintTop_toBottomOf="@id/labelTag"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/tvSerie"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@id/labelSerie"
         app:layout_constraintBaseline_toBaselineOf="@id/labelSerie"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- ===== GAMA DE SERVIÇO (entrada / saída) ===== -->
     <TextView
-        android:id="@+id/labelGamaEntrada"
+        android:id="@+id/labelGamaServico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gama de serviço – Entrada:"
+        android:text="Gama de serviço – Entrada / Saída:"
         android:textStyle="bold"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/labelObra"
-        app:layout_constraintTop_toBottomOf="@id/labelSerie"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvModelo"
         android:layout_marginTop="12dp" />
 
     <TextView
-        android:id="@+id/tvGamaEntrada1"
+        android:id="@+id/tvGamaServico"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/labelGamaEntrada"
-        app:layout_constraintBaseline_toBaselineOf="@id/labelGamaEntrada"
-        app:layout_constraintEnd_toStartOf="@id/tvGamaEntrada2" />
-
-    <TextView
-        android:id="@+id/tvGamaEntrada2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:gravity="end"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/tvGamaEntrada1"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvGamaEntrada1"
+        app:layout_constraintStart_toEndOf="@id/labelGamaServico"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelGamaServico"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/labelGamaSaida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gama de serviço – Saída:"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/labelObra"
-        app:layout_constraintTop_toBottomOf="@id/labelGamaEntrada"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/tvGamaSaida1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/labelGamaSaida"
-        app:layout_constraintBaseline_toBaselineOf="@id/labelGamaSaida"
-        app:layout_constraintEnd_toStartOf="@id/tvGamaSaida2" />
-
-    <TextView
-        android:id="@+id/tvGamaSaida2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:gravity="end"
-        android:textSize="12sp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/tvGamaSaida1"
-        app:layout_constraintBaseline_toBaselineOf="@id/tvGamaSaida1"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/labelErroMax"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Erro Máx. % (F. Esc.):"
-        android:textStyle="bold"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/labelObra"
-        app:layout_constraintTop_toBottomOf="@id/labelGamaSaida"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/tvErroMax"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="12sp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/labelErroMax"
-        app:layout_constraintBaseline_toBaselineOf="@id/labelErroMax"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Função (checkboxes) -->
+    <!-- ===== FUNÇÃO (checkboxes) ===== -->
     <TextView
         android:id="@+id/labelFuncao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Função:"
         android:textStyle="bold"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvModelo"
-        android:layout_marginTop="20dp" />
+        app:layout_constraintTop_toBottomOf="@id/labelGamaServico"
+        android:layout_marginTop="10dp" />
 
     <CheckBox
         android:id="@+id/cbLinear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Linear"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBaseline_toBaselineOf="@id/labelFuncao"
         app:layout_constraintStart_toEndOf="@id/labelFuncao"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="8dp" />
 
     <CheckBox
         android:id="@+id/cbQuadratica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quadrática"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBaseline_toBaselineOf="@id/labelFuncao"
         app:layout_constraintStart_toEndOf="@id/cbLinear"
         android:layout_marginStart="8dp" />
@@ -409,22 +363,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Termopar"
-        android:textSize="12sp"
+        android:textSize="10sp"
         app:layout_constraintBaseline_toBaselineOf="@id/labelFuncao"
         app:layout_constraintStart_toEndOf="@id/cbQuadratica"
         android:layout_marginStart="8dp" />
 
-    <!-- Tabela Verificação Inicial -->
+    <!-- ===== VERIFICAÇÃO INICIAL (5 linhas) ===== -->
     <TextView
         android:id="@+id/tvVerifInicial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verificação Inicial"
         android:textStyle="bold"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintTop_toBottomOf="@id/labelFuncao"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="12dp" />
 
     <TableLayout
         android:id="@+id/tabelaInicial"
@@ -432,234 +386,705 @@
         android:layout_height="wrap_content"
         android:stretchColumns="*"
         android:shrinkColumns="*"
-        android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/tvVerifInicial"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp">
+
+        <TableRow
+            android:background="@drawable/cell_border_bold">
+            <TextView
+                android:text="Valor Entrada"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                />
+            <TextView android:text="Valor Leitura" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Erro" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Fora Gama?" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+        </TableRow>
+
+        <!-- 5 linhas -->
+        <TableRow>
+
+            <TextView
+                android:id="@+id/initEntrada0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initLeitura0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initErro0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initFora0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+        </TableRow>
+
 
         <TableRow>
-            <TextView android:text="Valor" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Padrão" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Saída Eq." android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Erro" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Limite" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/initEntrada1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initLeitura1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initErro1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initFora1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/padrao0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/saida0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/erro0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/limite0" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/initEntrada2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initLeitura2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initErro2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initFora2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="25" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/padrao25" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/saida25" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/erro25" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/limite25" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/initEntrada3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initLeitura3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initErro3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initFora3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/padrao50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/saida50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/erro50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/limite50" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/initEntrada4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initLeitura4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initErro4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/initFora4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
-        <TableRow>
-            <TextView android:text="75" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/padrao75" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/saida75" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/erro75" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/limite75" android:padding="6dp" android:textSize="12sp"/>
-        </TableRow>
 
-        <TableRow>
-            <TextView android:text="100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/padrao100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/saida100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/erro100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/limite100" android:padding="6dp" android:textSize="12sp"/>
-        </TableRow>
     </TableLayout>
 
-    <!-- Tabela Verificação Final -->
+    <!-- ===== VERIFICAÇÃO FINAL (5 linhas) ===== -->
     <TextView
-        android:id="@+id/tvVerifFinal"
+        android:id="@+id/tvVerifFinal2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Verificação Final"
         android:textStyle="bold"
-        android:textSize="14sp"
+        android:textSize="11sp"
         app:layout_constraintTop_toBottomOf="@id/tabelaInicial"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="12dp" />
 
     <TableLayout
-        android:id="@+id/tabelaFinal"
+        android:id="@+id/tabelaFinal2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:stretchColumns="*"
         android:shrinkColumns="*"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvVerifFinal"
+        app:layout_constraintTop_toBottomOf="@id/tvVerifFinal2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp">
 
         <TableRow>
-            <TextView android:text="Valor" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Padrão" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Saída Eq." android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Erro" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Limite" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
+            <TextView android:text="Valor Entrada" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Valor Leitura" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Erro" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Fora Gama?" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+        </TableRow>
+
+        <!-- 5 linhas -->
+        <TableRow>
+            <TextView
+                android:id="@+id/finalEntrada0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalLeitura0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalErro0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalFora0"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalPadrao0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalSaida0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalErro0" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalLimite0" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/finalEntrada1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalLeitura1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalErro1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalFora1"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalPadrao50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalSaida50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalErro50" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalLimite50" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/finalEntrada2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalLeitura2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalErro2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalFora2"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:text="100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalPadrao100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalSaida100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalErro100" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/finalLimite100" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/finalEntrada3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalLeitura3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalErro3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalFora3"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/finalEntrada4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalLeitura4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalErro4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/finalFora4"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+        </TableRow>
+
+
     </TableLayout>
 
-    <!-- Equipamento padrão utilizado -->
+    <!-- ===== EQUIPAMENTO PADRÃO UTILIZADO (5 linhas) ===== -->
     <TextView
-        android:id="@+id/tvEquipPadrao"
+        android:id="@+id/tvEquipPadrao2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Equipamento Padrão Utilizado"
         android:textStyle="bold"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/tabelaFinal"
+        android:textSize="11sp"
+        app:layout_constraintTop_toBottomOf="@id/tabelaFinal2"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="12dp" />
 
     <TableLayout
-        android:id="@+id/tabelaEquipPadrao"
+        android:id="@+id/tabelaEquipPadrao2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:stretchColumns="*"
         android:shrinkColumns="*"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tvEquipPadrao"
+        app:layout_constraintTop_toBottomOf="@id/tvEquipPadrao2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="6dp">
 
         <TableRow>
-            <TextView android:text="Marca" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="Modelo" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="N.º Série" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
-            <TextView android:text="N.º Património" android:padding="6dp" android:textStyle="bold" android:textSize="12sp"/>
+            <TextView android:text="Marca" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="Modelo" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="N.º Série" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView android:text="N.º Património" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+        </TableRow>
+
+        <!-- 5 linhas -->
+        <TableRow>
+            <TextView
+                android:id="@+id/peqEq1Marca"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq1Modelo"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq1Serie"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq1Patrimonio"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:id="@+id/eq1Marca" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq1Modelo" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq1Serie" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq1Patrimonio" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/peqEq2Marca"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq2Modelo"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq2Serie"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq2Patrimonio"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:id="@+id/eq2Marca" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq2Modelo" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq2Serie" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq2Patrimonio" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/peqEq3Marca"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq3Modelo"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq3Serie"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq3Patrimonio"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
 
         <TableRow>
-            <TextView android:id="@+id/eq3Marca" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq3Modelo" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq3Serie" android:padding="6dp" android:textSize="12sp"/>
-            <TextView android:id="@+id/eq3Patrimonio" android:padding="6dp" android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/peqEq4Marca"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq4Modelo"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq4Serie"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq4Patrimonio"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
         </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/peqEq5Marca"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq5Modelo"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq5Serie"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/peqEq5Patrimonio"
+                android:padding="2dp"
+                android:minHeight="16dp"
+                android:textSize="8sp"
+                android:gravity="center_vertical" />
+        </TableRow>
+
 
     </TableLayout>
 
-    <!-- Observações -->
+    <!-- ===== OBSERVAÇÕES ===== -->
     <TextView
-        android:id="@+id/tvObsLabel"
+        android:id="@+id/tvObsLabelFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Observações"
         android:textStyle="bold"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/tabelaEquipPadrao"
+        android:textSize="10sp"
+        app:layout_constraintTop_toBottomOf="@id/tabelaEquipPadrao2"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="12dp" />
 
     <TextView
-        android:id="@+id/tvObservacoes"
+        android:id="@+id/tvObservacoesFinal"
         android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_height="90dp"
         android:text=""
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:padding="6dp"
         android:background="#00000000"
-        app:layout_constraintTop_toBottomOf="@id/tvObsLabel"
+        app:layout_constraintTop_toBottomOf="@id/tvObsLabelFinal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Rodapé: Verificado | Técnico | Responsável -->
+    <TableLayout
+        android:id="@+id/tabelaVerificacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1,2"
+        app:layout_constraintTop_toBottomOf="@id/tvObservacoesFinal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Cabeçalho -->
+        <TableRow>
+            <TextView
+                android:text="Verificado"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center" />
+
+            <TextView
+                android:text="Técnico"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center" />
+
+            <TextView
+                android:text="Responsável"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center" />
+        </TableRow>
+
+        <!-- Nome -->
+        <TableRow>
+            <TextView
+                android:text="Nome"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtNomeTecnico"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtNomeResponsavel"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+        </TableRow>
+
+        <!-- Assinatura -->
+        <TableRow>
+            <TextView
+                android:text="Assinatura"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtAssinTecnico"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtAssinResponsavel"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+        </TableRow>
+
+        <!-- Data -->
+        <TableRow>
+            <TextView
+                android:text="Data"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtDataTecnico"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/txtDataResponsavel"
+                android:padding="2dp"
+                android:minHeight="18dp"
+                android:textSize="9sp"
+                android:gravity="center_vertical" />
+        </TableRow>
+
+    </TableLayout>
+
+
+
+    <!-- ===== RODAPÉ ASSINATURAS ===== -->
     <LinearLayout
-        android:id="@+id/footer"
+        android:id="@+id/footerSign"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center_horizontal"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="8dp"
+        android:weightSum="2">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:paddingEnd="8dp">
 
-            <TextView
-                android:id="@+id/tvVerificadoLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Verificado"
-                android:textStyle="bold"
-                android:textSize="12sp" />
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
 
-            <TextView
-                android:id="@+id/tvVerificadoNome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvVerificadoAssinatura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Assinatura"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -667,61 +1092,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center_horizontal">
+            android:paddingStart="8dp">
 
-            <TextView
-                android:id="@+id/tvTecnicoLabelFooter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Técnico"
-                android:textStyle="bold"
-                android:textSize="12sp" />
+            <View android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000"/>
 
-            <TextView
-                android:id="@+id/tvTecnicoNome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvTecnicoAssinatura"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Assinatura"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal">
-
-            <TextView
-                android:id="@+id/tvResponsavelLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Responsável"
-                android:textStyle="bold"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvResponsavelNome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/tvResponsavelData"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Data"
-                android:textSize="12sp"
-                android:layout_marginTop="4dp" />
         </LinearLayout>
 
     </LinearLayout>
