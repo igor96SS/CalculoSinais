@@ -86,13 +86,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Ficha de Calibração"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/lineAddress4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp" />
 
     <!-- guideline vertical centro -->
     <androidx.constraintlayout.widget.Guideline
@@ -112,7 +112,7 @@
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:id="@+id/tvCliente"
@@ -223,8 +223,8 @@
         android:textSize="10sp"
         app:layout_constraintStart_toEndOf="@id/guidelineCenter"
         app:layout_constraintTop_toBottomOf="@id/tvTitulo"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:id="@+id/tvObra"
@@ -263,12 +263,13 @@
         android:id="@+id/labelTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="TAG / Identificação:"
-        android:textStyle="bold"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@id/labelObra"
-        app:layout_constraintTop_toBottomOf="@id/labelData"
-        android:layout_marginTop="8dp" />
+        android:textStyle="bold"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toEndOf="@id/tvDescricao"
+        app:layout_constraintTop_toBottomOf="@id/labelData" />
 
     <TextView
         android:id="@+id/tvTag"
@@ -308,25 +309,97 @@
         android:id="@+id/labelGamaServico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gama de serviço – Entrada / Saída:"
-        android:textStyle="bold"
+        android:text="Gama de\nserviço"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvModelo"
-        android:layout_marginTop="12dp" />
+        android:textStyle="bold"
+        android:layout_marginStart="2dp"
+        app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
+        app:layout_constraintTop_toBottomOf="@+id/labelSerie" />
 
     <TextView
-        android:id="@+id/tvGamaServico"
+        android:id="@+id/labelEntrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Entrada"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/labelSerie"
+        app:layout_constraintStart_toStartOf="@+id/labelSerie"
+        app:layout_constraintTop_toBottomOf="@+id/labelSerie" />
+
+    <TextView
+        android:id="@+id/tvEntrada"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text=""
         android:textSize="10sp"
         android:layout_marginStart="8dp"
-        app:layout_constraintStart_toEndOf="@id/labelGamaServico"
-        app:layout_constraintBaseline_toBaselineOf="@id/labelGamaServico"
+        app:layout_constraintStart_toEndOf="@id/labelEntrada"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelEntrada"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/labelSaida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Saida"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/labelEntrada"
+        app:layout_constraintStart_toStartOf="@+id/labelEntrada"
+        app:layout_constraintTop_toBottomOf="@+id/labelEntrada" />
+
+    <TextView
+        android:id="@+id/tvSaida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/labelSaida"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelSaida"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/labelErroMax"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Erro Máx.% (F.Esc.)"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/labelSaida"
+        app:layout_constraintTop_toBottomOf="@+id/labelSaida" />
+
+    <TextView
+        android:id="@+id/tvErroMax"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="10sp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/labelErroMax"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelErroMax"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- ===== FUNÇÃO (checkboxes) ===== -->
+    <!--
+    <TextView
+        android:id="@+id/tvGamaServico"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text=""
+        android:textSize="10sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/labelGamaServico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/labelGamaServico" />
+
+        -->
+
     <TextView
         android:id="@+id/labelFuncao"
         android:layout_width="wrap_content"
@@ -335,8 +408,9 @@
         android:textStyle="bold"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/labelGamaServico"
-        android:layout_marginTop="10dp" />
+        app:layout_constraintTop_toBottomOf="@id/labelErroMax"
+        app:layout_constraintStart_toEndOf="@id/labelErroMax"
+        />
 
     <CheckBox
         android:id="@+id/cbLinear"
@@ -364,9 +438,9 @@
         android:layout_height="wrap_content"
         android:text="Termopar"
         android:textSize="10sp"
-        app:layout_constraintBaseline_toBaselineOf="@id/labelFuncao"
-        app:layout_constraintStart_toEndOf="@id/cbQuadratica"
-        android:layout_marginStart="8dp" />
+        app:layout_constraintEnd_toStartOf="@+id/guidelineCenter"
+        app:layout_constraintStart_toStartOf="@id/cbQuadratica"
+        app:layout_constraintTop_toBottomOf="@+id/cbQuadratica" />
 
     <!-- ===== VERIFICAÇÃO INICIAL (5 linhas) ===== -->
     <TextView
@@ -376,7 +450,7 @@
         android:text="Verificação Inicial"
         android:textStyle="bold"
         android:textSize="11sp"
-        app:layout_constraintTop_toBottomOf="@id/labelFuncao"
+        app:layout_constraintTop_toBottomOf="@id/cbTermopar"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="12dp" />
 
@@ -585,10 +659,34 @@
         android:layout_marginTop="6dp">
 
         <TableRow>
-            <TextView android:text="Valor Entrada" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
-            <TextView android:text="Valor Leitura" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
-            <TextView android:text="Erro" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
-            <TextView android:text="Fora Gama?" android:padding="4dp" android:textStyle="bold" android:textSize="9sp"/>
+            <TextView
+                android:text="Valor Entrada"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                />
+
+            <TextView
+                android:text="Valor Leitura"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                />
+
+            <TextView
+                android:text="Erro"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                />
+
+            <TextView
+                android:text="Fora Gama?"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="9sp"
+                />
+
         </TableRow>
 
         <!-- 5 linhas -->
